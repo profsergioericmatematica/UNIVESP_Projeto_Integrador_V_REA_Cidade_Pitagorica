@@ -98,7 +98,9 @@ git clone [https://github.com/profsergioericmatematica/UNIVESP_Projeto_Integrado
 
 * **Nota:** Para gerar e baixar o relatório diagnóstico final .txt, garanta que o navegador tenha permissão para baixar arquivos.
 
-## 👨 💻 Equipe de DesenvolvimentoProjeto desenvolvido em colaboração pelos discentes da UNIVESP:
+## 👨 💻 Equipe de Desenvolvimento
+
+**Projeto desenvolvido em colaboração pelos discentes da UNIVESP:**
 
 Antonio Antunes Júnior  
 
