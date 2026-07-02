@@ -69,10 +69,10 @@ O projeto foi construído com arquitetura Front-end otimizada, dispensando frame
 │   └── somAcerto.mp3
 │   └── somErro.mp3
 │   └── somVazio.mpe
-├── Questões Prova Paulista de Matematica do 1º Bimestre de 2026
+├── Questões Prova Paulista de Matematica do 1º Bimestre de 2026/
 │   └── 1-serie-dia-2-prova-roxa-1-16.pdf
 │   └── Prova_e_Folha_de_Respostas_Seduc_1_srie_DIA_2__Prova_Roxa-2-5.pdf
-└── Testes de Bancada
+└── Testes de Bancada/
     └── Relatorio_Pitagorica_Teste_Caótico_Completo.txt
     └── Relatorio_Pitagorica_Teste_das_Respostas_Sujas.txt
     └── Relatorio_Pitagorica_Teste_de_Bancada_acertando_tudo_pedindo_todas_as_dicas_e_usando_calculadora.txt
