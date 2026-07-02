@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Missão: Construtores do Amanhã</title>
+    <link rel="stylesheet" href="style/style.css">
+</head>
+<body>
+
+    <div class="header-rea">
+        REA - Recurso Educacional Aberto: Cidade Pitagórica
+        <small>Projeto Integrador V | Universidade Virtual do Estado de São Paulo - UNIVESP</small>
+
+        
+    </div>
+
+    
+
+    <div id="calculadora" class="calculadora">
+        <div class="calc-header">
+            <span style="color: #ecf0f1; font-weight: bold;">🖩 Calculadora Científica</span>
+            <span class="calc-fechar" onclick="fecharCalculadora()">✖</span>
+        </div>
+        <input type="text" id="calc-visor" class="calc-visor" value="0" disabled title="Visor da calculadora" aria-label="Visor da calculadora">
+        <div class="calc-grid">
+            <button class="calc-btn action" onclick="calcLimpar()">C</button>
+            <button class="calc-btn op" onclick="calcRaiz()">√</button>
+            <button class="calc-btn op" onclick="calcRaizCubica()">∛</button>
+            <button class="calc-btn op" onclick="calcOperacao('/')">÷</button>
+            <button class="calc-btn" onclick="calcNum(7)">7</button>
+            <button class="calc-btn" onclick="calcNum(8)">8</button>
+            <button class="calc-btn" onclick="calcNum(9)">9</button>
+            <button class="calc-btn op" onclick="calcOperacao('*')">×</button>
+            <button class="calc-btn" onclick="calcNum(4)">4</button>
+            <button class="calc-btn" onclick="calcNum(5)">5</button>
+            <button class="calc-btn" onclick="calcNum(6)">6</button>
+            <button class="calc-btn op" onclick="calcOperacao('-')">-</button>
+            <button class="calc-btn" onclick="calcNum(1)">1</button>
+            <button class="calc-btn" onclick="calcNum(2)">2</button>
+            <button class="calc-btn" onclick="calcNum(3)">3</button>
+            <button class="calc-btn op" onclick="calcOperacao('+')">+</button>
+            <button class="calc-btn op" onclick="calcOperacao('^')">xʸ</button>
+            <button class="calc-btn" onclick="calcNum(0)">0</button>
+            <button class="calc-btn" onclick="calcDecimal()">.</button>
+            <button class="calc-btn action" onclick="calcIgual()" style="background-color: #4cd137;">=</button>
+        </div>
+        <button class="btn-usar-calc" onclick="calcUsarResultado()">Copia e cola o resultado no campo de entrada de dados ➡️</button>
+    </div>
+
+    <div class="game-container">
+
+        <div id="container-progresso" class="progress-container" style="display: none;">
+            <div id="barra-progresso" class="progress-bar">
+                <span id="porcentagem-texto" style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); color: white; font-weight: bold; font-size: 14px;">0%</span>
+            </div>
+        </div>
+        
+        <div id="tela-inicio" class="pergunta-box" style="text-align: center; border-color: #e1b12c;">
+            <h1>🏗️ Missão: Cidade Pitagórica</h1>
+            <p>Bem-vindo, Engenheiro(a)! A nossa cidade precisa de você para finalizar as obras do Canteiro Central.</p>
+            <p>Para liberar os recursos de construção, resolva os enigmas estruturais.</p>
+
+            <input type="text" id="nome-aluno" placeholder="Digite seu primeiro nome" aria-label="Digite seu primeiro nome" style="width: 80%; margin-bottom: 20px; text-align: center; font-weight: bold;">
+            <br>
+            <button onclick="iniciarJogo()">Aceitar e Iniciar Nova Missão</button>
+
+        
+        </div>
+
+        <div id="fase-1" style="display: none;">
+            <h1>Fase 1: A Rampa de Skate</h1>
+            <div id="badge-f1" class="badge">🏆 Mestre de Pitágoras Desbloqueado!</div>
+            
+            <div class="image-placeholder">
+                <img src="imagens/q1.png" alt="Esboços da rampa de skate">
+            </div>
+
+            <div class="mission-text">
+                <strong>Missão Skate (Projeto de Revitalização):</strong><br>
+                Analise os esboços acima. A parte inclinada da rampa deve medir 60 cm e a altura deve ser 30 cm.
+            </div>
+
+            <div class="pergunta-box" id="caixa-pergunta-1">
+                <p><strong>Passo 1:</strong> Qual alternativa apresenta o esboço correto para a obra?</p>
+                <input type="text" id="resposta-esboco" placeholder="Esboço 1, 2 ou 3" aria-label="Digite o número do esboço correto 1, 2 ou 3" style="width: 140px;">
+                <button class="btn-dica" onclick="mostrarDica(1, 1)">💡 Dica</button>
+                <button id="btn-esboco">Validar Esboço</button>
+                <div id="feedback-esboco" class="feedback"></div>
+            </div>
+
+            <div class="pergunta-box" id="caixa-pergunta-2" style="display: none; border-color: #00a8ff;">
+                <p><strong>Passo 2:</strong> Excelente análise espacial! O esboço forma um triângulo retângulo. <br>Qual é o nome geométrico que damos à rampa inclinada de 60 cm?</p>
+                <input type="text" id="resposta-nome" placeholder="Nome do lado" aria-label="Digite o nome geometrico do lado inclinado da rampa" style="width: 160px;">
+                <button class="btn-dica" onclick="mostrarDica(1, 2)">💡 Dica</button>
+                <button id="btn-nome">Verificar Resposta</button>
+                <div id="feedback-nome" class="feedback"></div>
+            </div>
+            <br>
+            <button id="btn-proxima-fase" onclick="irParaFaseGenerica(1, 2)" style="display: none; background-color: #4cd137; color: white; width: 100%;">Ir para Fase 2 ➡️</button>
+        </div>
+
+        <div id="fase-2" style="display: none;">
+            <h1>Fase 2: A Tirolesa</h1>
+            <div id="badge-f2" class="badge">🏆 Engenheiro das Alturas Desbloqueado!</div>
+            
+            <div class="image-placeholder">
+                <img src="imagens/q4.png" alt="Torres da Tirolesa">
+            </div>
+
+            <div class="mission-text">
+                <strong>Desafio do Engenheiro:</strong><br>
+                Precisamos esticar um cabo de aço entre duas torres. A maior tem 12m e a menor tem 8m. A distância no chão entre elas é de 20m.
+            </div>
+
+            <div class="pergunta-box" id="f2-caixa-1">
+                <p><strong>Passo 1:</strong> Para calcular o cabo, precisamos enxergar um "triângulo invisível" no ar ligando o topo das torres. Qual é a altura vertical desse triângulo (em metros)?</p>
+                <input type="number" id="f2-resp-altura" placeholder="Altura (m)" aria-label="Digite a altura em metros" style="width: 120px;">
+                <button class="btn-calc-inline" onclick="abrirCalculadora('f2-resp-altura')" title="Abrir Calculadora">🖩 Calculadora</button>
+                <button class="btn-dica" onclick="mostrarDica(2, 1)">💡 Dica</button>
+                <button id="f2-btn-1">Validar Altura</button>
+                <div id="f2-feedback-1" class="feedback"></div>
+            </div>
+
+            <div class="pergunta-box" id="f2-caixa-2" style="display: none; border-color: #00a8ff;">
+                <p><strong>Passo 2:</strong> Geometricamente, como chamamos os lados de 4m e 20m que formam o ângulo de 90°?</p>
+                <input type="text" id="f2-resp-catetos" placeholder="Os lados são..." aria-label="Digite o nome dos lados que formam o ângulo de 90 graus" style="width: 160px;">
+                <button class="btn-dica" onclick="mostrarDica(2, 2)">💡 Dica</button>
+                <button id="f2-btn-2">Validar Termo</button>
+                <div id="f2-feedback-2" class="feedback"></div>
+            </div>
+
+            <div class="pergunta-box" id="f2-caixa-3" style="display: none; border-color: #9c88ff;">
+                <p><strong>Passo 3:</strong> E como chamamos o cabo inclinado que queremos descobrir?</p>
+                <input type="text" id="f2-resp-hipotenusa" placeholder="O cabo é a..." aria-label="Digite o nome do lado inclinado da rampa" style="width: 160px;">
+                <button class="btn-dica" onclick="mostrarDica(2, 3)">💡 Dica</button>
+                <button id="f2-btn-3">Validar Termo</button>
+                <div id="f2-feedback-3" class="feedback"></div>
+            </div>
+
+            <div class="pergunta-box" id="f2-caixa-4" style="display: none; border-color: #4cd137;">
+                <p><strong>Passo 4:</strong> Aplique o Teorema de Pitágoras (Catetos de 4m e 20m). <br><em>Dica: Considere \(\sqrt{26} \approx 5,1\).</em><br>Qual será o comprimento final do cabo (em metros)?</p>
+                <input type="number" id="f2-resp-final" step="0.1" placeholder="Comprimento" aria-label="Digite o comprimento final do cabo em metros" style="width: 140px;">
+                <button class="btn-calc-inline" onclick="abrirCalculadora('f2-resp-final')" title="Abrir Calculadora">🖩 Calculadora</button>
+                <button id="f2-btn-4">Confirmar e avançar</button>
+                <div id="f2-feedback-4" class="feedback"></div>
+            </div>
+            <br>
+            <button id="btn-proxima-fase-2" onclick="irParaFaseGenerica(2, 3)" style="display: none; background-color: #4cd137; color: white; width: 100%;">Ir para Fase 3 ➡️</button>
+        </div>
+
+        <div id="fase-3" style="display: none;">
+            <h1>Fase 3: O Esquadro do Mestre</h1>
+            <div id="badge-f3" class="badge">🏆 Proporção Perfeita Desbloqueada!</div>
+            
+            <div class="image-placeholder">
+                <img src="imagens/q2.png" alt="Triângulo retângulo de lados 9 e 12" style="max-width: 100%; border-radius: 4px;">
+            </div>
+
+            <div class="mission-text">
+                <strong>Desafio da Marcenaria:</strong><br>
+                Precisamos conferir as medidas de uma peça de suporte em formato de triângulo retângulo. Os dois lados retos medem <strong>9 cm</strong> e <strong>12 cm</strong>.
+            </div>
+
+            <div class="pergunta-box" id="f3-caixa-1">
+                <p><strong>Passo 1:</strong> Na geometria, como chamamos os lados menores que formam o ângulo de 90°?</p>
+                <input type="text" id="f3-resp-catetos" placeholder="Os lados são..." aria-label="Digite o nome dos lados que formam o ângulo de 90 graus" style="width: 160px;">
+                <button class="btn-dica" onclick="mostrarDica(3, 1)">💡 Dica</button>
+                <button id="f3-btn-1">Validar Termo</button>
+                <div id="f3-feedback-1" class="feedback"></div>
+            </div>
+
+            <div class="pergunta-box" id="f3-caixa-2" style="display: none; border-color: #00a8ff;">
+                <p><strong>Passo 2:</strong> Para aplicar o Teorema de Pitágoras (\(x^2 = 9^2 + 12^2\)), precisamos primeiro calcular a soma dos quadrados desses lados. Qual é o resultado?</p>
+                <input type="text" id="f3-resp-soma" placeholder="x²" aria-label="Digite o resultado da soma dos quadrados dos catetos" style="width: 120px;">
+
+                <button class="btn-calc-inline" onclick="abrirCalculadora('f3-resp-soma')" title="Abrir Calculadora">🖩 Calculadora</button>
+                <button class="btn-dica" onclick="mostrarDica(3, 2)">💡 Dica</button>
+                <button id="f3-btn-2">Validar Resposta</button>
+                <div id="f3-feedback-2" class="feedback"></div>
+            </div>
+
+            <div class="pergunta-box" id="f3-caixa-3" style="display: none; border-color: #4cd137;">
+                <p><strong>Passo 3:</strong> Agora, extraia a raiz quadrada desse valor final para encontrar a hipotenusa. Qual é o comprimento da peça (em cm)?</p>
+                <input type="number" id="f3-resp-hipotenusa" placeholder="√x²" aria-label="Digite o comprimento da hipotenusa em centímetros" style="width: 140px;">
+                <button class="btn-calc-inline" onclick="abrirCalculadora('f3-resp-hipotenusa')" title="Abrir Calculadora">🖩 Calculadora</button>
+                <button class="btn-dica" onclick="mostrarDica(3, 3)">💡 Dica</button>
+                <button id="f3-btn-3">Validar Cálculo</button>
+                <div id="f3-feedback-3" class="feedback"></div>
+            </div>
+            
+            <br>
+        <button id="btn-proxima-fase-3" onclick="irParaFaseGenerica(3, 4)" style="display: none; background-color: #4cd137; color: white; width: 100%;">Ir para Fase 4 ➡️</button>        </div>
+
+        <div id="fase-4" style="display: none;">
+            <h1>Fase 4: O Canal de Drenagem</h1>
+            <div id="badge-f4" class="badge">🏆 Visão de Raio-X Desbloqueada!</div>
+            
+            <div class="image-placeholder">
+                <img src="imagens/q6.png" alt="Canal de Drenagem em Trapézio" style="max-width: 100%; border-radius: 4px;">
+            </div>
+
+            <div class="mission-text">
+                <strong>Desafio do Impermeabilizante:</strong><br>
+                A seção do canal tem formato de trapézio isósceles. O topo tem <strong>10 m</strong> de largura, o fundo tem <strong>6 m</strong> e a profundidade (altura) é de <strong>4 m</strong>. Precisamos achar o comprimento da parede lateral inclinada.
+            </div>
+
+            <div class="pergunta-box" id="f4-caixa-1">
+                <p><strong>Passo 1:</strong> Para usar Pitágoras, precisamos imaginar um triângulo retângulo na lateral. A base desse triângulo é a "sobra" do topo dividida por 2. Qual é a medida dessa base (em metros)?</p>
+                <input type="number" id="f4-resp-base" placeholder="Base (m)" aria-label="Digite a medida da base do triângulo em metros" style="width: 120px;">
+                <button class="btn-calc-inline" onclick="abrirCalculadora('f4-resp-base')" title="Abrir Calculadora">🖩 Calculadora</button>
+                <button class="btn-dica" onclick="mostrarDica(4, 1)">💡 Dica</button>
+                <button id="f4-btn-1">Validar Cálculo da Base</button>
+                <div id="f4-feedback-1" class="feedback"></div>
+            </div>
+
+            <div class="pergunta-box" id="f4-caixa-2" style="display: none; border-color: #00a8ff;">
+                <p><strong>Passo 2:</strong> A altura desse triângulo é a profundidade (4 m). Usando os catetos (base que você achou e altura 4), qual é a <strong>soma dos quadrados</strong> (\(x^2 = a^2 + b^2\))?</p>
+                <input type="number" id="f4-resp-soma" placeholder="x²" aria-label="Digite o resultado da soma dos quadrados dos catetos" style="width: 120px;">
+                <button class="btn-calc-inline" onclick="abrirCalculadora('f4-resp-soma')" title="Abrir Calculadora">🖩 Calculadora</button>
+                <button class="btn-dica" onclick="mostrarDica(4, 2)">💡 Dica</button>
+                <button id="f4-btn-2">Calcular Hipotenusa²</button>
+                <div id="f4-feedback-2" class="feedback"></div>
+            </div>
+
+            <div class="pergunta-box" id="f4-caixa-3" style="display: none; border-color: #4cd137;">
+                <p><strong>Passo 3:</strong> A parede é igual a \(\sqrt{20}\). Fatorando esse número (\(20 = 4 \times 5\)), qual das alternativas abaixo representa o comprimento exato da parede?</p>
+                <p style="font-size: 14px; margin-bottom: 10px;">
+                    <strong>A)</strong> 6 m<br>
+                    <strong>B)</strong> 2√3 m<br>
+                    <strong>C)</strong> 2√5 m<br>
+                    <strong>D)</strong> 4√2 m<br>
+                    <strong>E)</strong> 5 m
+                </p>
+                <input type="text" id="f4-resp-final" placeholder="Letra A, B, C, D ou E" aria-label="Digite a letra da alternativa correta" style="width: 140px;">
+                <button class="btn-dica" onclick="mostrarDica(4, 3)">💡 Dica</button>
+                <button id="f4-btn-3">Validar Resposta</button>
+                <div id="f4-feedback-3" class="feedback"></div>
+            </div>
+            
+            <br>
+            <button id="btn-proxima-fase-4" onclick="irParaFaseGenerica(4, 5)" style="display: none; background-color: #4cd137; color: white; width: 100%;">Ir para Fase 5 ➡️</button>
+        </div>
+
+        <div id="fase-5" style="display: none;">
+            <h1>Fase 5: A Praça Circular</h1>
+            <div id="badge-f5" class="badge">🏆 Geometria Redonda Desbloqueada!</div>
+            
+            <div class="image-placeholder">
+                <img src="imagens/q3.png" alt="Triângulo inscrito na circunferência" style="max-width: 100%; border-radius: 4px;">
+            </div>
+
+            <div class="mission-text">
+                <strong>Desafio do Centro da Praça:</strong><br>
+                A praça central é circular e tem dois caminhos retos nas bordas medindo <strong>6 m</strong> e <strong>4 m</strong>, formando um ângulo de 90° entre si. Precisamos descobrir a medida do raio da praça.
+            </div>
+
+            <div class="pergunta-box" id="f5-caixa-1">
+                <p><strong>Passo 1:</strong> A imagem mostra um triângulo retângulo dentro de um círculo passando pelo centro. Como chamamos a hipotenusa (o lado maior) quando ela corta o círculo de ponta a ponta?</p>
+                <input type="text" id="f5-resp-diametro" placeholder="Nome do lado" aria-label="Digite o nome do lado que corta o círculo de ponta a ponta" style="width: 160px;">
+                <button class="btn-dica" onclick="mostrarDica(5, 1)">💡 Dica</button>
+                <button id="f5-btn-1">Validar Resposta</button>
+                <div id="f5-feedback-1" class="feedback"></div>
+            </div>
+
+            <div class="pergunta-box" id="f5-caixa-2" style="display: none; border-color: #00a8ff;">
+                <p><strong>Passo 2:</strong> Usando os catetos 6 e 4 da figura, aplique Pitágoras (\(x^2 = 6^2 + 4^2\)). Qual é a soma dos quadrados?</p>
+                <input type="number" id="f5-resp-soma" placeholder="x²" aria-label="Digite o resultado da soma dos quadrados dos catetos" style="width: 120px;">
+                <button class="btn-calc-inline" onclick="abrirCalculadora('f5-resp-soma')" title="Abrir Calculadora">🖩 Calculadora</button>
+                <button class="btn-dica" onclick="mostrarDica(5, 2)">💡 Dica</button>
+                <button id="f5-btn-2">Validar Resposta</button>
+                <div id="f5-feedback-2" class="feedback"></div>
+            </div>
+
+            <div class="pergunta-box" id="f5-caixa-3" style="display: none; border-color: #4cd137;">
+                <p><strong>Passo 3:</strong> O projeto não quer o diâmetro (\(\sqrt{52}\)), mas sim o <strong>Raio</strong> (a metade). Sabendo que \(\sqrt{52}\) fatorado é \(2\sqrt{13}\), qual alternativa indica a medida do Raio?</p>
+                <p style="font-size: 14px; margin-bottom: 10px;">
+                    <strong>A)</strong> \(\sqrt{13}\) m<br>
+                    <strong>B)</strong> 26 m<br>
+                    <strong>C)</strong> 10 m
+                </p>
+                <input type="text" id="f5-resp-final" placeholder="Letra A, B ou C" aria-label="Digite a letra da alternativa correta" style="width: 140px;">
+                <button class="btn-dica" onclick="mostrarDica(5, 3)">💡 Dica</button>
+                <button id="f5-btn-3">Validar Resposta</button>
+                <div id="f5-feedback-3" class="feedback"></div>
+            </div>
+            
+            <br>
+            <button id="btn-proxima-fase-5" onclick="irParaFaseGenerica(5, 6)" style="display: none; background-color: #4cd137; color: white; width: 100%;">Ir para Fase 6 ➡️</button>
+        </div>
+
+        <div id="fase-6" style="display: none;">
+            <h1>Fase 6: A Iluminação da Piscina</h1>
+            <div id="badge-f6" class="badge">🏆 Mestre das Diagonais!</div>
+            <div class="image-placeholder"><img src="imagens/q8.png" alt="Piscina de 12 por 6"></div>
+            <div class="mission-text"><strong>Contexto:</strong> Passar um fio de iluminação na diagonal de uma piscina de 12m por 6m.</div>
+
+            <div class="pergunta-box" id="f6-caixa-1">
+                <p><strong>Passo 1:</strong> Calcule o quadrado da diagonal da piscina usando os lados 12 e 6 (\(12^2 + 6^2\)).</p>
+                <input type="number" id="f6-resp-1" placeholder="x²" aria-label="Digite o resultado do quadrado da diagonal">
+                <button class="btn-calc-inline" onclick="abrirCalculadora('f6-resp-1')" title="Abrir Calculadora">🖩 Calculadora</button>
+                <button class="btn-dica" onclick="mostrarDica(6, 1)">💡 Dica</button>
+                <button id="f6-btn-1">Validar Resposta</button>
+                <div id="f6-feed-1" class="feedback"></div>
+            </div>
+
+            <div class="pergunta-box" id="f6-caixa-2" style="display: none; border-color: #00a8ff;">
+                <p><strong>Passo 2:</strong> Existe algum número inteiro que multiplicado por ele mesmo dê 180?</p>
+                <input type="text" id="f6-resp-2" placeholder="Sim / Não" aria-label="Digite Sim ou Não para saber se existe raiz inteira">
+                <button class="btn-dica" onclick="mostrarDica(6, 2)">💡 Dica</button>
+                <button class="btn-calc-inline" onclick="abrirCalculadora('f6-resp-2')" title="Abrir Calculadora">🖩 Calculadora</button>
+
+                <button id="f6-btn-2">Validar Resposta</button>
+                <div id="f6-feed-2" class="feedback"></div>
+            </div>
+
+            <div class="pergunta-box" id="f6-caixa-3" style="display: none; border-color: #9c88ff;">
+                <p><strong>Passo 3:</strong> Simplifique \(\sqrt{180}\) fatorando o radicando (180 = 36 × 5). Qual é a forma simplificada?</p>
+                <input type="text" id="f6-resp-3" placeholder="Escreva no formato AraizB" aria-label="Digite a forma simplificada da raiz quadrada de 180, no formato A raiz B, por exemplo 6raiz5">
+                <button class="btn-calc-inline" onclick="abrirCalculadora('f6-resp-3')" title="Abrir Calculadora">🖩 Calculadora</button>
+                <button class="btn-dica" onclick="mostrarDica(6, 3)">💡 Dica</button>
+                <button id="f6-btn-3">Validar Resposta</button>
+                <div id="f6-feed-3" class="feedback"></div>
+            </div>
+
+            <div class="pergunta-box" id="f6-caixa-4" style="display: none; border-color: #4cd137;">
+                <p><strong>Passo 4:</strong> Como \(\sqrt{180}\) simplificado é \(6\sqrt{5}\), e √5 é irracional, qual alternativa classifica a natureza dessa diagonal?</p>
+                <p style="font-size: 14px;"><strong>A)</strong> Racional exato<br><strong>B)</strong> Irracional<br><strong>C)</strong> Inteiro</p>
+                <input type="text" id="f6-resp-4" placeholder="A, B ou C" aria-label="Digite a letra da alternativa correta">
+                <button class="btn-dica" onclick="mostrarDica(6, 4)">💡 Dica</button>
+                <button id="f6-btn-4">Validar Resposta</button>
+                <div id="f6-feed-4" class="feedback"></div>
+            </div>
+            <br><button id="btn-proxima-fase-6" onclick="irParaFaseGenerica(6, 7)" style="display: none; background-color: #4cd137; color: white; width: 100%;">Ir para Fase 7 ➡️</button>
+        </div>
+
+        <div id="fase-7" style="display: none;">
+            <h1>Fase 7: A Tubulação Subterrânea</h1>
+            <div id="badge-f7" class="badge">🏆 Lógica Afiada!</div>
+            <div class="mission-text"><strong>Contexto:</strong> O engenheiro precisa cruzar um terreno quadrado (10x10) com canos de esgoto.</div>
+
+            <div class="pergunta-box" id="f7-caixa-1">
+                <p><strong>Passo 1:</strong> O engenheiro aplicou Pitágoras e achou \(\sqrt{200}\). Esse valor pode ser expresso como uma fração exata?</p>
+                <input type="text" id="f7-resp-1" placeholder="Sim / Não" aria-label="Digite Sim ou Não">
+                <button class="btn-dica" onclick="mostrarDica(7, 1)">💡 Dica</button>
+                <button id="f7-btn-1">Validar Resposta</button>
+                <div id="f7-feed-1" class="feedback"></div>
+            </div>
+
+            <div class="pergunta-box" id="f7-caixa-2" style="display: none; border-color: #4cd137;">
+                <p><strong>Passo 2:</strong> Assim como na piscina, qual a única alternativa correta para a natureza geométrica da \(\sqrt{200}\)?</p>
+                <p style="font-size: 14px;"><strong>A)</strong> Dízima Periódica<br><strong>B)</strong> Irracional</p>
+                <input type="text" id="f7-resp-2" placeholder="Letra" aria-label="Digite a letra da alternativa correta">
+                <button class="btn-dica" onclick="mostrarDica(7, 2)">💡 Dica</button>
+                <button id="f7-btn-2">Validar Resposta</button>
+                <div id="f7-feed-2" class="feedback"></div>
+            </div>
+            <br><button id="btn-proxima-fase-7" onclick="irParaFaseGenerica(7, 8)" style="display: none; background-color: #4cd137; color: white; width: 100%;">Ir para Fase 8 ➡️</button>
+        </div>
+
+        <div id="fase-8" style="display: none;">
+            <h1>Fase 8: O Parque Ecológico</h1>
+            <div id="badge-f8" class="badge">🏆 Protetor da Natureza!</div>
+            <div class="image-placeholder"><img src="imagens/q10.png" alt="Terreno Trapezoidal"></div>
+            <div class="mission-text"><strong>Contexto:</strong> Cercar um terreno em formato de trapézio para proteger os animais. (Lados em km: 1,3 ; 0,7 ; 0,6 ; 0,6)</div>
+
+            <div class="pergunta-box" id="f8-caixa-1">
+                <p><strong>Passo 1:</strong> Qual é o perímetro total do terreno em quilômetros?</p>
+                <input type="number" step="0.1" id="f8-resp-1" placeholder="km" aria-label="Digite o perímetro total do terreno em quilômetros">
+                <button class="btn-calc-inline" onclick="abrirCalculadora('f8-resp-1')" title="Abrir Calculadora">🖩 Calculadora</button>
+                <button class="btn-dica" onclick="mostrarDica(8, 1)">💡 Dica</button>
+                <button id="f8-btn-1">Validar Resposta</button>
+                <div id="f8-feed-1" class="feedback"></div>
+            </div>
+
+            <div class="pergunta-box" id="f8-caixa-2" style="display: none; border-color: #00a8ff;">
+                <p><strong>Passo 2:</strong> As cercas são vendidas em metros. Multiplique por 1000 para converter.</p>
+                <input type="number" id="f8-resp-2" placeholder="Metros" aria-label="Digite o perímetro convertido para metros">
+                <button class="btn-calc-inline" onclick="abrirCalculadora('f8-resp-2')" title="Abrir Calculadora">🖩 Calculadora</button>
+                <button class="btn-dica" onclick="mostrarDica(8, 2)">💡 Dica</button>
+                <button id="f8-btn-2">Validar Resposta</button>
+                <div id="f8-feed-2" class="feedback"></div>
+            </div>
+
+            <div class="pergunta-box" id="f8-caixa-3" style="display: none; border-color: #4cd137;">
+                <p><strong>Passo 3:</strong> O regulamento exige <strong>3 fios</strong> de arame. Quantos metros deverão ser comprados no total?</p>
+                <input type="number" id="f8-resp-3" placeholder="Total (m)" aria-label="Digite o total de metros de arame a serem comprados">
+                <button class="btn-calc-inline" onclick="abrirCalculadora('f8-resp-3')" title="Abrir Calculadora">🖩 Calculadora</button>
+                <button class="btn-dica" onclick="mostrarDica(8, 3)">💡 Dica</button>
+                <button id="f8-btn-3">Validar Resposta</button>
+                <div id="f8-feed-3" class="feedback"></div>
+            </div>
+            <br><button id="btn-proxima-fase-8" onclick="irParaFaseGenerica(8, 9)" style="display: none; background-color: #4cd137; color: white; width: 100%;">Ir para Fase 9 ➡️</button>
+        </div>
+
+        <div id="fase-9" style="display: none;">
+            <h1>Fase 9: Estruturas Modulares</h1>
+            <div id="badge-f9" class="badge">🏆 Especialista em 3D!</div>
+            <div class="mission-text"><strong>Contexto:</strong> Montar enfeites cúbicos de arame. Cada cubo tem um volume de \(512 \text{ cm}^3\).</div>
+
+            <div class="pergunta-box" id="f9-caixa-1">
+                <p><strong>Passo 1:</strong> O volume é \(x^3\). Use a "Raiz Cúbica" (\(\sqrt[3]{}\)) na calculadora para descobrir o tamanho de um lado.</p>
+                <input type="number" id="f9-resp-1" placeholder="Aresta (cm)" aria-label="Digite o tamanho de uma aresta do cubo em centímetros">
+                <button class="btn-calc-inline" onclick="abrirCalculadora('f9-resp-1')" title="Abrir Calculadora">🖩 Calculadora</button>
+                <button class="btn-dica" onclick="mostrarDica(9, 1)">💡 Dica</button>
+                <button id="f9-btn-1">Validar Resposta</button>
+                <div id="f9-feed-1" class="feedback"></div>
+            </div>
+
+            <div class="pergunta-box" id="f9-caixa-2" style="display: none; border-color: #00a8ff;">
+                <p><strong>Passo 2:</strong> Quantas arestas (linhas) possui um cubo inteiro?</p>
+                <input type="number" id="f9-resp-2" placeholder="Qtd" aria-label="Digite o número total de arestas de um cubo">
+                <button class="btn-dica" onclick="mostrarDica(9, 2)">💡 Dica</button>
+                <button id="f9-btn-2">Validar Resposta</button>
+                <div id="f9-feed-2" class="feedback"></div>
+            </div>
+
+            <div class="pergunta-box" id="f9-caixa-3" style="display: none; border-color: #4cd137;">
+                <p><strong>Passo 3:</strong> Multiplique o tamanho de uma aresta pelo número total de arestas.</p>
+                <input type="number" id="f9-resp-3" placeholder="Total de arame" aria-label="Digite o total de metros de arame a serem comprados">
+                <button class="btn-calc-inline" onclick="abrirCalculadora('f9-resp-3')" title="Abrir Calculadora">🖩 Calculadora</button>
+                <button class="btn-dica" onclick="mostrarDica(9, 3)">💡 Dica</button>
+                <button id="f9-btn-3">Validar Resposta</button>
+                <div id="f9-feed-3" class="feedback"></div>
+            </div>
+            <br><button id="btn-proxima-fase-9" onclick="irParaFaseGenerica(9, 10)" style="display: none; background-color: #4cd137; color: white; width: 100%;">Ir para Fase 10 ➡️</button>
+        </div>
+
+        <div id="fase-10" style="display: none;">
+            <h1>Fase 10: O Acabamento de Madeira</h1>
+            <div id="badge-f10" class="badge">🏆 Rei das Frações!</div>
+            <div class="mission-text"><strong>Contexto:</strong> Envernizar uma tábua. Comprimento: 9m. Largura: a dízima \(0,666...\)m.</div>
+
+            <div class="pergunta-box" id="f10-caixa-1">
+                <p><strong>Passo 1:</strong> Transforme a dízima \(0,666...\) em uma fração simplificada.</p>
+                <input type="number" id="f10-resp-1-num" placeholder="Num" style="width: 80px;"> / 
+                <input type="number" id="f10-resp-1-den" placeholder="Den" style="width: 80px;">
+                <button class="btn-dica" onclick="mostrarDica(10, 1)">💡 Dica</button>
+                <button id="f10-btn-1">Validar Resposta</button>
+                <div id="f10-feed-1" class="feedback"></div>
+            </div>
+
+            <div class="pergunta-box" id="f10-caixa-2" style="display: none; border-color: #4cd137;">
+                <p><strong>Passo 2:</strong> Multiplique o comprimento (9) pela fração (2/3) para achar a área em m².</p>
+                <input type="number" id="f10-resp-2" placeholder="Área (m²)" aria-label="Digite a área em metros quadrados">
+                <button class="btn-calc-inline" onclick="abrirCalculadora('f10-resp-2')" title="Abrir Calculadora">🖩 Calculadora</button>
+                <button class="btn-dica" onclick="mostrarDica(10, 2)">💡 Dica</button>
+                <button id="f10-btn-2">Validar Resposta</button>
+                <div id="f10-feed-2" class="feedback"></div>
+            </div>
+            <br><button id="btn-proxima-fase-10" onclick="irParaFaseGenerica(10, 11)" style="display: none; background-color: #4cd137; color: white; width: 100%;">Ir para Fase 11 ➡️</button>
+        </div>
+
+        <div id="fase-11" style="display: none;">
+            <h1>Fase 11: O Motor das Máquinas</h1>
+            <div id="badge-f11" class="badge">🏆 Mecânico Matemático!</div>
+            <div class="mission-text"><strong>Contexto:</strong> Calibrar as engrenagens das máquinas calculando a fórmula \(p \div q\).</div>
+
+            <div class="pergunta-box" id="f11-caixa-1">
+                <p><strong>Passo 1:</strong> O valor de \(p\) é \(0,666...\) Qual é a sua fração geratriz?</p>
+                <input type="text" id="f11-resp-1" placeholder="x/y">
+                <button class="btn-dica" onclick="mostrarDica(11, 1)">💡 Dica</button>
+                <button id="f11-btn-1">Validar p</button>
+                <div id="f11-feed-1" class="feedback"></div>
+            </div>
+
+            <div class="pergunta-box" id="f11-caixa-2" style="display: none; border-color: #00a8ff;">
+                <p><strong>Passo 2:</strong> O valor de \(q\) é \(3^{-1}\). O expoente negativo inverte a base. Qual é a fração?</p>
+                <input type="text" id="f11-resp-2" placeholder="x/y">
+                <button class="btn-dica" onclick="mostrarDica(11, 2)">💡 Dica</button>
+                <button id="f11-btn-2">Validar q</button>
+                <div id="f11-feed-2" class="feedback"></div>
+            </div>
+
+            <div class="pergunta-box" id="f11-caixa-3" style="display: none; border-color: #4cd137;">
+                <p><strong>Passo 3:</strong> Divida \(p\) por \(q\) (repita a primeira, multiplique pelo inverso da segunda). Resultado inteiro:</p>
+                <input type="number" id="f11-resp-3" placeholder="Resultado" aria-label="Digite o resultado da divisão">
+                <button class="btn-dica" onclick="mostrarDica(11, 3)">💡 Dica</button>
+                <button id="f11-btn-3">Validar Resposta</button>
+                <div id="f11-feed-3" class="feedback"></div>
+            </div>
+            <br><button id="btn-proxima-fase-11" onclick="irParaFaseGenerica(11, 12)" style="display: none; background-color: #4cd137; color: white; width: 100%;">Ir para Fase 12 ➡️</button>
+        </div>
+
+        <div id="fase-12" style="display: none;">
+            <h1>Fase 12: Os Códigos do Cofre</h1>
+            <div id="badge-f12" class="badge">🏆 Hacker Algébrico!</div>
+            <div class="mission-text"><strong>Contexto:</strong> A senha do cofre da obra é a expressão \(m \times n\).</div>
+
+            <div class="pergunta-box" id="f12-caixa-1">
+                <p><strong>Passo 1:</strong> \(m = (1,777...)^{0,5}\). A fração é 16/9 e 0,5 é a raiz quadrada. Qual a raiz de 16/9?</p>
+                <input type="text" id="f12-resp-1" placeholder="x/y" aria-label="Digite o valor de m na forma de fração">
+                <button class="btn-dica" onclick="mostrarDica(12, 1)">💡 Dica</button>
+                <button id="f12-btn-1">Decifrar m</button>
+                <div id="f12-feed-1" class="feedback"></div>
+            </div>
+
+            <div class="pergunta-box" id="f12-caixa-2" style="display: none; border-color: #00a8ff;">
+                <p><strong>Passo 2:</strong> \(n = (2/3)^{-2}\). Inverta a base e eleve ao quadrado.</p>
+                <input type="text" id="f12-resp-2" placeholder="x/y" aria-label="Digite o valor de n na forma de fração">
+                <button class="btn-dica" onclick="mostrarDica(12, 2)">💡 Dica</button>
+                <button id="f12-btn-2">Decifrar n</button>
+                <div id="f12-feed-2" class="feedback"></div>
+            </div>
+
+            <div class="pergunta-box" id="f12-caixa-3" style="display: none; border-color: #4cd137;">
+                <p><strong>Passo 3:</strong> Multiplique \(m \times n\) (4/3 \(\times\) 9/4). Qual é a alternativa/senha final?</p>
+                <p style="font-size: 14px;">
+                    <strong>A)</strong> 4/27 &nbsp;&nbsp;
+                    <strong>B)</strong> 8/9 &nbsp;&nbsp;
+                    <strong>C)</strong> 2 &nbsp;&nbsp;
+                    <strong>D)</strong> 3 &nbsp;&nbsp;
+                    <strong>E)</strong> 4
+                </p>
+                <input type="text" id="f12-resp-3" placeholder="Letra (A, B, C, D ou E)" aria-label="Digite a letra da alternativa correta">
+                <button class="btn-dica" onclick="mostrarDica(12, 3)">💡 Dica</button>
+                <button id="f12-btn-3">Validar Resposta</button>
+                <div id="f12-feed-3" class="feedback"></div>
+            </div>
+            <br><button id="btn-proxima-fase-12" onclick="irParaFaseGenerica(12, 13)" style="display: none; background-color: #4cd137; color: white; width: 100%;">Ir para Fase 13 ➡️</button>
+        </div>
+
+        <div id="fase-13" style="display: none;">
+            <h1>Fase 13: A Fita de Isolamento</h1>
+            <div id="badge-f13" class="badge">🏆 Gestor de Estoque!</div>
+            <div class="mission-text"><strong>Contexto:</strong> O rolo de fita de isolamento chegou com \(\sqrt{144}\) metros.</div>
+
+            <div class="pergunta-box" id="f13-caixa-1">
+                <p><strong>Passo 1:</strong> Quantos metros inteiros tem o rolo total?</p>
+                <input type="number" id="f13-resp-1" placeholder="Metros" aria-label="Digite o número de metros inteiros no rolo">
+                <button class="btn-calc-inline" onclick="abrirCalculadora('f13-resp-1')" title="Abrir Calculadora">🖩 Calculadora</button>
+                <button class="btn-dica" onclick="mostrarDica(13, 1)">💡 Dica</button>
+                <button id="f13-btn-1">Validar Resposta</button>
+                <div id="f13-feed-1" class="feedback"></div>
+            </div>
+
+            <div class="pergunta-box" id="f13-caixa-2" style="display: none; border-color: #00a8ff;">
+                <p><strong>Passo 2:</strong> Usados 3 pedaços: 2,5m + 0,75m (\(3/4\)) + 1,5m (\(\sqrt{9/4}\)). Qual a soma utilizada?</p>
+                <input type="number" step="0.01" id="f13-resp-2" placeholder="Gasto (m)" aria-label="Digite o total de metros gastos">
+                <button class="btn-calc-inline" onclick="abrirCalculadora('f13-resp-2')" title="Abrir Calculadora">🖩 Calculadora</button>
+                <button class="btn-dica" onclick="mostrarDica(13, 2)">💡 Dica</button>
+                <button id="f13-btn-2">Validar Resposta</button>
+                <div id="f13-feed-2" class="feedback"></div>
+            </div>
+
+            <div class="pergunta-box" id="f13-caixa-3" style="display: none; border-color: #4cd137;">
+                <p><strong>Passo 3:</strong> Subtraia o consumo do total. Qual alternativa indica quanto restou no rolo?</p>
+                <p style="font-size: 14px;"><strong>A)</strong> 7,25m&nbsp;&nbsp;&nbsp;<strong>B)</strong> 8,00m&nbsp;&nbsp;&nbsp;<strong>C)</strong> 4,75m</p>
+                <input type="text" id="f13-resp-3" placeholder="Letra ou Valor" aria-label="Digite a letra da alternativa correta ou o valor numérico">
+                <button class="btn-calc-inline" onclick="abrirCalculadora('f13-resp-3')" title="Abrir Calculadora">🖩 Calculadora</button>
+                <button class="btn-dica" onclick="mostrarDica(13, 3)">💡 Dica</button>
+                <button id="f13-btn-3">Validar Resposta</button>
+                <div id="f13-feed-3" class="feedback"></div>
+            </div>
+            <br><button id="btn-proxima-fase-13" onclick="irParaFaseGenerica(13, 14)" style="display: none; background-color: #4cd137; color: white; width: 100%;">Ir para Fase 14 ➡️</button>
+        </div>
+
+        <div id="fase-14" style="display: none;">
+            <h1>Fase 14: As Antenas de GPS</h1>
+            <div id="badge-f14" class="badge">🏆 Navegador Espacial!</div>
+            <div class="image-placeholder"><img src="imagens/q7.png" alt="Reta Numérica M N O P Q R"></div>
+            <div class="mission-text"><strong>Contexto:</strong> Instalar antenas baseadas em um mapa (Reta Numérica).</div>
+
+            <div class="pergunta-box" id="f14-caixa-1">
+                <p><strong>Passo 1:</strong> Antena 1 (\(\sqrt{22}\)). Fica entre 4 e 5 (\(\sqrt{16}\) e \(\sqrt{25}\)). Qual a letra do ponto?</p>
+                <input type="text" id="f14-resp-1" placeholder="Letra" aria-label="Digite a letra do ponto onde a antena 1 deve ser instalada">
+                <button class="btn-calc-inline" onclick="abrirCalculadora('f14-resp-1')" title="Abrir Calculadora">🖩 Calculadora</button>
+                <button class="btn-dica" onclick="mostrarDica(14, 1)">💡 Dica</button>
+                <button id="f14-btn-1">Localizar A1</button>
+                <div id="f14-feed-1" class="feedback"></div>
+            </div>
+
+            <div class="pergunta-box" id="f14-caixa-2" style="display: none; border-color: #00a8ff;">
+                <p><strong>Passo 2:</strong> Antena 2 (25/99). Numerador menor que denominador (menor que 1). Qual o ponto?</p>
+                <input type="text" id="f14-resp-2" placeholder="Letra" aria-label="Digite a letra do ponto onde a antena 2 deve ser instalada">
+                <button class="btn-calc-inline" onclick="abrirCalculadora('f14-resp-2')" title="Abrir Calculadora">🖩 Calculadora</button>
+                <button class="btn-dica" onclick="mostrarDica(14, 2)">💡 Dica</button>
+                <button id="f14-btn-2">Localizar A2</button>
+                <div id="f14-feed-2" class="feedback"></div>
+            </div>
+
+            <div class="pergunta-box" id="f14-caixa-3" style="display: none; border-color: #9c88ff;">
+                <p><strong>Passo 3:</strong> Antena 3 (193/90). Cabe duas vezes e sobra um pouco (2,14...). Qual o ponto?</p>
+                <input type="text" id="f14-resp-3" placeholder="Letra" aria-label="Digite a letra do ponto onde a antena 3 deve ser instalada">
+                <button class="btn-calc-inline" onclick="abrirCalculadora('f14-resp-3')" title="Abrir Calculadora">🖩 Calculadora</button>
+                <button class="btn-dica" onclick="mostrarDica(14, 3)">💡 Dica</button>
+                <button id="f14-btn-3">Localizar A3</button>
+                <div id="f14-feed-3" class="feedback"></div>
+            </div>
+
+            <div class="pergunta-box" id="f14-caixa-4" style="display: none; border-color: #4cd137;">
+                <p><strong>Passo 4:</strong> Qual alternativa tem a sequência correta?</p>
+                <p style="font-size: 14px;"><strong>A)</strong> M, N, O&nbsp;&nbsp;&nbsp;<strong>B)</strong> M, O, P&nbsp;&nbsp;&nbsp;<strong>C)</strong> Q, M, R</p>
+                <input type="text" id="f14-resp-4" placeholder="Alternativa" aria-label="Digite a alternativa correta">
+                <button class="btn-dica" onclick="mostrarDica(14, 4)">💡 Dica</button>
+                <button id="f14-btn-4">Validar Resposta</button>
+                <div id="f14-feed-4" class="feedback"></div>
+            </div>
+            <br><button id="btn-proxima-fase-14" onclick="irParaFaseGenerica(14, 15)" style="display: none; background-color: #4cd137; color: white; width: 100%;">Ir para a Última Fase ➡️</button>
+        </div>
+
+        <div id="fase-15" style="display: none;">
+            <h1>Fase 15: A Grande Inauguração!</h1>
+            <div id="badge-f15" class="badge">🏆 Prefeito de Pitágoras!</div>
+            <div class="mission-text"><strong>Contexto:</strong> A cidade está pronta! A estreia do cinema (filme de 216 min + intervalo de 10 min) começou às 21h10.</div>
+
+            <div class="pergunta-box" id="f15-caixa-1">
+                <p><strong>Passo 1:</strong> Quantos minutos no total eles ficam no cinema?</p>
+                <input type="number" id="f15-resp-1" placeholder="Total Min" aria-label="Digite o total de minutos no cinema">
+                <button class="btn-calc-inline" onclick="abrirCalculadora('f15-resp-1')" title="Abrir Calculadora">🖩 Calculadora</button>
+                <button class="btn-dica" onclick="mostrarDica(15, 1)">💡 Dica</button>
+                <button id="f15-btn-1">Validar Resposta</button>
+                <div id="f15-feed-1" class="feedback"></div>
+            </div>
+
+            <div class="pergunta-box" id="f15-caixa-2" style="display: none; border-color: #00a8ff;">
+                <p><strong>Passo 2:</strong> Converta os minutos totais para "Horas e Minutos".</p>
+                <input type="number" id="f15-resp-2-h" placeholder="Horas" style="width: 80px;" aria-label="Digite o número de horas">
+                <input type="number" id="f15-resp-2-m" placeholder="Min" style="width: 80px;" aria-label="Digite o número de minutos">
+                <button class="btn-calc-inline" onclick="abrirCalculadora('f15-resp-2-h')" title="Abrir Calculadora">🖩 Calculadora</button>
+                <button class="btn-dica" onclick="mostrarDica(15, 2)">💡 Dica</button>
+                <button id="f15-btn-2">Validar Resposta</button>
+                <div id="f15-feed-2" class="feedback"></div>
+            </div>
+
+            <div class="pergunta-box" id="f15-caixa-3" style="display: none; border-color: #4cd137;">
+                <p><strong>Passo 3:</strong> Some esse tempo ao horário de início (21h10). Qual alternativa marca a saída deles?</p>
+                <p style="font-size: 14px;"><strong>A)</strong> 00h36&nbsp;&nbsp;&nbsp;<strong>B)</strong> 00h46&nbsp;&nbsp;&nbsp;<strong>C)</strong> 00h56</p>
+                <input type="text" id="f15-resp-3" placeholder="Letra ou Hora" aria-label="Digite a letra da alternativa correta ou o horário de saída">
+                <button class="btn-dica" onclick="mostrarDica(15, 3)">💡 Dica</button>
+                <button id="f15-btn-3">Validar Resposta</button>
+                <div id="f15-feed-3" class="feedback"></div>
+            </div>
+            
+            <div id="vitoria-final" style="display: none; margin-top: 30px; text-align: center; color: #f1c40f;">
+                <h1 style="font-size: 40px; margin: 0;">🎉 PARABÉNS! 🎉</h1>
+                <p style="font-size: 18px; color: white;">Você concluiu 100% da Prova Paulista - Cidade Pitagórica!</p>
+            </div>
+        </div>
+
+        <div id="tela-relatorio" style="display: none; background-color: #2f3640; padding: 20px; border-radius: 8px; border: 2px solid #e1b12c;">
+            <h1 style="text-align: center; color: #fbc531;">📊 Diário de Obra (Relatório Final)</h1>
+            <p style="text-align: center;">Parabéns! A Cidade Pitagórica está pronta. Como engenheiro(a) chefe, faça seu relato final:</p>
+            
+            <div style="text-align: left; margin-bottom: 15px;">
+                <label style="font-weight: bold; color: #00a8ff;">1. Qual desafio matemático mais "deu um nó" na sua cabeça e como você superou?</label><br>
+                <textarea id="meta-1" rows="3"  style="width: 100%; border-radius: 6px; padding: 10px; margin-top: 5px; font-family: inherit; resize: vertical;" aria-label="Descreva o desafio matemático e como você superou"></textarea>
+            </div>
+
+            <div style="text-align: left; margin-bottom: 15px;">
+                <label style="font-weight: bold; color: #4cd137;">2. Quando você usou o botão "Dica", sentiu que ele ajudou a entender o "porquê" ou só mostrou o caminho mais rápido?</label><br>
+                <textarea id="meta-2" rows="3" style="width: 100%; border-radius: 6px; padding: 10px; margin-top: 5px; font-family: inherit; resize: vertical;" aria-label="Descreva sua experiência com o botão Dica"></textarea>
+            </div>
+
+            <div style="text-align: left; margin-bottom: 20px;">
+                <label style="font-weight: bold; color: #9c88ff;">3. Em qual situação do seu dia a dia (fora da escola) você acha que usaria o que treinou aqui (Pitágoras, frações, horas)?</label><br>
+                <textarea id="meta-3" rows="3" style="width: 100%; border-radius: 6px; padding: 10px; margin-top: 5px; font-family: inherit; resize: vertical;" aria-label="Descreva uma situação do seu dia a dia onde você usaria o que aprendeu"></textarea>
+            </div>
+
+            <div style="text-align: center;">
+                <button onclick="gerarEBaixarRelatorio()" style="background-color: #4cd137; color: white; padding: 15px 30px; font-size: 18px; width: 100%;">Baixar Relatório Diagnóstico (TXT) 📥</button>
+            </div>
+        </div>
+
+    </div>
+
+    
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <div class="footer-info">
+        <span class="titulo-footer">Educação Baseada em Evidências - Intervenção Pedagógica a partir dos Dados da Prova Paulista do 1º Bimestre de 2026</span>
+        <strong>Projeto Integrador V</strong> | Universidade Virtual do Estado de São Paulo - UNIVESP<br>
+        Desenvolvido por: Antonio Antunes Junior, Giovani Machado de Lima, Lilian Maria de Souza Lino, Priscilla Santiago Zamorra, Renata Helena Arantes e Oliveira, Rodrigo Aires de Medeiros Correa, Sergio Eric Reis de Oliveira, Vitor Correa Uberti.
+        <div class="licenca">Versão 1.0 | Licença MIT © 2026</div>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
