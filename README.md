@@ -184,7 +184,7 @@ Os relatórios completos estão disponíveis na pasta Testes de Bancada/.
 
 ---
 
-## 👨 💻 Equipe de Desenvolvimento
+## 👨 Equipe de Desenvolvimento
 
 **Projeto desenvolvido em colaboração pelos discentes da UNIVESP:**
 
