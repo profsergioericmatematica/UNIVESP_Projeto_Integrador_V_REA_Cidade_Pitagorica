@@ -43,6 +43,8 @@ O sistema é **auto-suficiente** e **offline**, rodando inteiramente no navegado
 - **Promover** a autonomia do estudante com ferramentas de apoio (calculadora, dicas contextuais).
 - **Gerar** relatórios detalhados para subsidiar o planejamento de intervenções pedagógicas.
 
+---
+
 ## 📚 Mapeamento com a Prova Paulista e Habilidades da BNCC
 
 O REA foi desenvolvido como intervenção pedagógica a partir dos dados da **Prova Paulista do 1º Bimestre de 2026** (1ª Série do Ensino Médio). Cada fase do jogo foi pensada para trabalhar as habilidades específicas avaliadas nas questões da prova oficial.
@@ -118,7 +120,9 @@ O REA foi desenvolvido como intervenção pedagógica a partir dos dados da **Pr
     └── Relatorio_Pitagorica_Teste_de_Bancada_errando_tudo_uma_vez.txt
     └── Relatorio_Pitagorica_Teste_do_Spammer_Cliques_no_Vazio.txt
     └── Análise dos testes de bancada.odt
+
 ```
+
 ## ⚙️ Como executar o projeto
 
 Como o projeto é feito puramente em tecnologias web client-side (sem back-end ou necessidade de banco de dados), a execução é imediata:
