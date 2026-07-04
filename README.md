@@ -77,7 +77,7 @@ O REA foi desenvolvido como intervenção pedagógica a partir dos dados da **Pr
 /
 ├── index.html                                                              # Estrutura principal, templates das fases e UI
 ├── style/
-│   └── style.css                                                           # Estilos globais, temas escuros e responsividade
+│   └── style.css                              # Estilos globais, temas escuros e responsividade
 ├── js/
 │   └── script.js                                                           # Core do jogo: Motor JSON, Levenshtein, Relatório e UI Logic
 ├── imagens/                                                              # Assets visuais dos desafios (q1.png a q10.png, etc.)
@@ -92,7 +92,8 @@ O REA foi desenvolvido como intervenção pedagógica a partir dos dados da **Pr
 ├── sons/                                                                   # Feedback auditivo (somAcerto.mp3, somErro.mp3, somVazio.mp3)
 │   └── somAcerto.mp3
 │   └── somErro.mp3
-│   └── somVazio.mpe
+│   └── somVazio.mp3
+│   └── somLigado.wav
 ├── Questões Prova Paulista de Matematica do 1º Bimestre de 2026/
 │   └── 1-serie-dia-2-prova-roxa-1-16.pdf
 │   └── Prova_e_Folha_de_Respostas_Seduc_1_srie_DIA_2__Prova_Roxa-2-5.pdf
