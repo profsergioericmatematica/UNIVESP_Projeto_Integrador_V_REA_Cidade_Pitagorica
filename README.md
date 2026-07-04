@@ -55,6 +55,7 @@ O REA foi desenvolvido como intervenção pedagógica a partir dos dados da **Pr
 | 🔊 **Feedback Audiovisual** | Sons e animações para acertos, erros e tentativas vazias. |
 | ♿ **Acessibilidade** | Atributos ARIA, foco controlado em modais, suporte a teclado (`Esc` e `Tab`). |
 | 📚 **Guia do Educador e Revisão Teórica** | Modais com plano de aula, justificativa pedagógica e resumo teórico. |
+| 📚 **Revisão Teórica** | Toda a Teoria da Cidade Pitagórica |
 
 
 **Nota:** A Fase 6 (Iluminação da Piscina) aborda ambas as habilidades, pois envolve o cálculo da diagonal pelo Teorema de Pitágoras (EM13MAT308) e a classificação do número resultante como irracional (EM13MAT103).
