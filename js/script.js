@@ -75,13 +75,13 @@ const regrasDoJogo = {
         2: { id: "f10-resp-2", feedId: "f10-feed-2", btnId: "f10-btn-2", tipo: "numero", esp: 6, msgOk: "Verniz aplicado!", msgErro: "Calcule: 9 * 2 / 3." }
     },
     11: {
-        1: { id: "f11-resp-1", feedId: "f11-feed-1", btnId: "f11-btn-1", tipo: "compararFracao", esp: [2, 3], msgOk: "Perfeito.", msgErro: "Lembre do passo anterior." },
-        2: { id: "f11-resp-2", feedId: "f11-feed-2", btnId: "f11-btn-2", tipo: "compararFracao", esp: [1, 3], msgOk: "Invertido.", msgErro: "Inverta a base 3." },
+        1: { id: "f11-resp-1-num", id2: "f11-resp-1-den", feedId: "f11-feed-1", btnId: "f11-btn-1", tipo: "compararFracao", esp: [2, 3], msgOk: "Perfeito.", msgErro: "Lembre do passo anterior." },
+        2: { id: "f11-resp-2-num", id2: "f11-resp-2-den", feedId: "f11-feed-2", btnId: "f11-btn-2", tipo: "compararFracao", esp: [1, 3], msgOk: "Invertido.", msgErro: "Inverta a base 3." },
         3: { id: "f11-resp-3", feedId: "f11-feed-3", btnId: "f11-btn-3", tipo: "numero", esp: 2, msgOk: "Motor ajustado!", msgErro: "(2/3) dividido por (1/3)." }
     },
     12: {
-        1: { id: "f12-resp-1", feedId: "f12-feed-1", btnId: "f12-btn-1", tipo: "compararFracao", esp: [4, 3], msgOk: "Raiz exata.", msgErro: "Raiz de 16 e raiz de 9." },
-        2: { id: "f12-resp-2", feedId: "f12-feed-2", btnId: "f12-btn-2", tipo: "compararFracao", esp: [9, 4], msgOk: "Isso mesmo.", msgErro: "Inverta para 3/2 e eleve ao quadrado." },
+        1: { id: "f12-resp-1-num", id2: "f12-resp-1-den", feedId: "f12-feed-1", btnId: "f12-btn-1", tipo: "compararFracao", esp: [4, 3], msgOk: "Raiz exata.", msgErro: "Raiz de 16 e raiz de 9." },
+        2: { id: "f12-resp-2-num", id2: "f12-resp-2-den", feedId: "f12-feed-2", btnId: "f12-btn-2", tipo: "compararFracao", esp: [9, 4], msgOk: "Isso mesmo.", msgErro: "Inverta para 3/2 e eleve ao quadrado." },
         3: { id: "f12-resp-3", feedId: "f12-feed-3", btnId: "f12-btn-3", tipo: "exato", esp: ["d", "3"], msgOk: "Cofre aberto! A senha é 3.", msgErro: "Multiplique as duas frações simplificadas que você encontrou e veja qual alternativa corresponde." }
     },
     13: {
@@ -256,11 +256,7 @@ function atualizarBotaoSom() {
     btn.classList.toggle('mudo-ativo', !somAtivado);
 }
 
-function compararFracao(inputStr, numEsperado, denEsperado) {
-    const limpo = inputStr.replace(/\s/g, ''); 
-    const partes = limpo.split('/');
-    if (partes.length !== 2) return false;
-    const num = parseFloat(partes[0]), den = parseFloat(partes[1]);
+function compararFracaoValores(num, den, numEsperado, denEsperado) {
     if (isNaN(num) || isNaN(den) || den === 0) return false;
     return Math.abs(num/den - numEsperado/denEsperado) < 0.001;
 }
@@ -401,14 +397,17 @@ function validarPasso(fase, passo) {
     let passou = false;
 
     // Checa campos múltiplos ou únicos
-    if (regra.tipo === "fracaoDupla" || regra.tipo === "horasMinutos") {
-        if (verificarCampoVazio(regra.id, fase, passo, "Preencha o primeiro campo!")) return;
-        if (verificarCampoVazio(regra.id2, fase, passo, "Preencha o segundo campo!")) return;
+    if (regra.tipo === "fracaoDupla" || regra.tipo === "horasMinutos" || regra.tipo === "compararFracao") {
+        const msgCampo1 = regra.tipo === "compararFracao" ? "Preencha o numerador!" : "Preencha o primeiro campo!";
+        const msgCampo2 = regra.tipo === "compararFracao" ? "Preencha o denominador!" : "Preencha o segundo campo!";
+        if (verificarCampoVazio(regra.id, fase, passo, msgCampo1)) return;
+        if (verificarCampoVazio(regra.id2, fase, passo, msgCampo2)) return;
         valor = parseFloat(document.getElementById(regra.id).value.replace(',', '.'));
         valor2 = parseFloat(document.getElementById(regra.id2).value.replace(',', '.'));
         
         if (regra.tipo === "fracaoDupla") passou = regra.esp.some(par => valor === par[0] && valor2 === par[1]);
         else if (regra.tipo === "horasMinutos") passou = (valor === regra.esp[0] && valor2 === regra.esp[1]);
+        else if (regra.tipo === "compararFracao") passou = compararFracaoValores(valor, valor2, regra.esp[0], regra.esp[1]);
     } else {
         if (verificarCampoVazio(regra.id, fase, passo)) return;
         valor = document.getElementById(regra.id).value;
@@ -427,8 +426,6 @@ function validarPasso(fase, passo) {
         } else if (regra.tipo === "parcial") {
             const str = valor.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim();
             passou = regra.esp.some(palavra => str.includes(palavra) || str === palavra);
-        } else if (regra.tipo === "compararFracao") {
-            passou = compararFracao(valor, regra.esp[0], regra.esp[1]);
         }
     }
 
@@ -472,6 +469,7 @@ function sucesso(fase, passo, proxPasso, textoFeed) {
         
         if (fase === 15) {
             document.getElementById('fase-15').style.display = "none";
+            gerarLaudoFormativo(); // CHAMA O NOVO FEEDBACK AQUI
             document.getElementById('tela-relatorio').style.display = "block";
             document.getElementById('tela-relatorio').classList.add("fade-in");
             document.querySelector('.game-container').scrollTop = 0;
@@ -523,14 +521,14 @@ function erro(fase, passo, textoFeed, silenciarSom = false) {
     });
 
     const feed = document.getElementById(regra.feedId);
-    if (feed) { feed.innerHTML = "❌ " + textoFeed; feed.className = "feedback error-text"; }
+    if (feed) { feed.innerHTML = "🚧 " + textoFeed; feed.className = "feedback error-text"; }
 
-    // Nudge pedagógico: após 3 erros seguidos no mesmo passo, mostra a dica
-    // automaticamente em vez de esperar o aluno clicar em "Dica" por conta própria.
+    // Nudge pedagógico: Reduzido de 3 para 2 erros! 
+    // Após 2 erros no mesmo passo, mostra a dica automaticamente
     const jaMostrouDicaAuto = logDiagnostico[fase][passo].dicaAutoExibida;
-    if (errosNoPasso >= 3 && !jaMostrouDicaAuto) {
+    if (errosNoPasso >= 2 && !jaMostrouDicaAuto) {
         logDiagnostico[fase][passo].dicaAutoExibida = true;
-        setTimeout(() => { mostrarDica(fase, passo, true); }, 900);
+        setTimeout(() => { mostrarDica(fase, passo, true); }, 800);
     }
 }
 
@@ -615,7 +613,7 @@ function mostrarDica(fase, passo, veioAutomatico = false) {
             logDiagnostico[fase][passo].usouDica = true;
             logDiagnostico[fase][passo].dicaExata = dicionarioDicas[chave];
             if (!veioAutomatico) logDiagnostico[fase][passo].dicaManual = true;
-            const origem = veioAutomatico ? "🤖 Dica sugerida automaticamente (3+ erros)" : "💡 Solicitou Dica";
+            const origem = veioAutomatico ? "🤖 Dica sugerida automaticamente (2+ erros)" : "💡 Solicitou Dica";
             registrarAcaoLog(fase, passo, `${origem}: "${dicionarioDicas[chave]}"`);
         }
     }
@@ -677,6 +675,174 @@ function inicializarMotorValidacao() {
                 }
             }
         }
+    }
+}
+
+// ================= ÁREA DO EDUCADOR (PI V) =================
+let elementoComFocoAntesDoModal = null; // guarda quem estava focado, pra devolver o foco ao fechar
+
+let modalAbertoAtualId = null; // qual modal está aberto agora (só um por vez)
+
+// Função genérica de abrir modal — usada tanto pelo Guia do Educador quanto
+// pela Revisão Teórica (e qualquer modal futuro), pra não duplicar código.
+function abrirModal(idModal, idFocoInicial) {
+    const modal = document.getElementById(idModal);
+    if (!modal) return;
+
+    elementoComFocoAntesDoModal = document.activeElement; // guarda quem estava focado
+    modalAbertoAtualId = idModal;
+
+    modal.classList.add('aberto');
+    modal.setAttribute('aria-hidden', 'false');
+
+    // Leva o foco para dentro do modal, pra quem navega por teclado não
+    // ficar "perdido" atrás dele.
+    const alvoFoco = document.getElementById(idFocoInicial);
+    if (alvoFoco) alvoFoco.focus();
+
+    document.addEventListener('keydown', controlarTecladoModal);
+}
+
+function fecharModal(idModal) {
+    const modal = document.getElementById(idModal);
+    if (!modal) return;
+
+    modal.classList.remove('aberto');
+    modal.setAttribute('aria-hidden', 'true');
+
+    document.removeEventListener('keydown', controlarTecladoModal);
+    modalAbertoAtualId = null;
+
+    // Devolve o foco pra onde estava antes (o botão que abriu o modal)
+    if (elementoComFocoAntesDoModal) elementoComFocoAntesDoModal.focus();
+}
+
+// Pega todos os elementos "focáveis" que existem dentro do modal aberto agora
+// (o X de fechar, links, botões, campos — o que existir).
+function pegarFocaveisDoModal(idModal) {
+    const modal = document.getElementById(idModal);
+    const seletor = 'a[href], button, input, textarea, select, [tabindex]:not([tabindex="-1"])';
+    return Array.from(modal.querySelectorAll(seletor)).filter(el => el.offsetParent !== null);
+}
+
+// Um único listener cuida de duas coisas enquanto QUALQUER modal está aberto:
+// 1) Esc fecha o modal
+// 2) Tab (e Shift+Tab) fica girando só dentro do modal, sem "vazar" pro
+//    conteúdo do jogo que está escondido atrás dele (focus trap).
+function controlarTecladoModal(evento) {
+    if (!modalAbertoAtualId) return;
+
+    if (evento.key === 'Escape') {
+        fecharModal(modalAbertoAtualId);
+        return;
+    }
+
+    if (evento.key === 'Tab') {
+        const focaveis = pegarFocaveisDoModal(modalAbertoAtualId);
+        if (focaveis.length === 0) return;
+
+        const primeiro = focaveis[0];
+        const ultimo = focaveis[focaveis.length - 1];
+
+        if (evento.shiftKey && document.activeElement === primeiro) {
+            evento.preventDefault();
+            ultimo.focus();
+        } else if (!evento.shiftKey && document.activeElement === ultimo) {
+            evento.preventDefault();
+            primeiro.focus();
+        }
+    }
+}
+
+// Atalhos específicos (mantêm os nomes que o HTML já chama no onclick)
+function abrirModalProfessor() { abrirModal('modal-professor', 'fechar-modal-professor'); }
+function fecharModalProfessor() { fecharModal('modal-professor'); }
+
+function abrirModalRevisao() { abrirModal('modal-revisao', 'fechar-modal-revisao'); }
+function fecharModalRevisao() { fecharModal('modal-revisao'); }
+
+// Qualquer "X" de fechar (classe .modal-fechar) é um <span> com role="button",
+// então precisa responder a Enter/Espaço também (spans não fazem isso
+// nativamente como <button>). Um listener só, delegado, cobre todos os modais.
+document.addEventListener('keydown', (evento) => {
+    if ((evento.key === 'Enter' || evento.key === ' ') && evento.target.classList.contains('modal-fechar')) {
+        evento.preventDefault();
+        evento.target.click();
+    }
+});
+
+// ================= LAUDO FORMATIVO INTELIGENTE =================
+function gerarLaudoFormativo() {
+    let errosPitagoras = 0, errosReais = 0, errosLocalizacao = 0;
+    let totalErros = 0;
+    let totalDicas = 0;
+    
+    // Varre o log e conta erros por competência
+    for(let f=1; f<=15; f++) {
+        for(let p=1; p<=4; p++) {
+            const log = logDiagnostico[f]?.[p];
+            if (!log) continue;
+            const erros = log.erros || 0;
+            totalErros += erros;
+            if (log.usouDica) totalDicas++;
+            if (f >= 1 && f <= 6) errosPitagoras += erros;
+            else if (f >= 7 && f <= 13) errosReais += erros;
+            else if (f >= 14 && f <= 15) errosLocalizacao += erros;
+        }
+    }
+
+    // Função auxiliar para gerar ícone e texto com base no número de erros
+    const avaliar = (erros, limiteBom, limiteOk) => {
+        if (erros <= limiteBom) return { icone: '✅', texto: 'Excelente!', cor: '#4cd137' };
+        if (erros <= limiteOk) return { icone: '⚠️', texto: 'Bom, mas pode melhorar.', cor: '#fbc531' };
+        return { icone: '🚧', texto: 'Revisão necessária.', cor: '#e84118' };
+    };
+
+    const geo = avaliar(errosPitagoras, 3, 6);
+    const real = avaliar(errosReais, 4, 8);
+    const loc = avaliar(errosLocalizacao, 2, 4);
+
+    // Monta o HTML do laudo com os três blocos
+    const textoLaudo = `
+        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 12px;">
+            <div style="background: #2f3640; padding: 10px; border-radius: 6px; text-align: center;">
+                <div style="font-size: 28px;">${geo.icone}</div>
+                <div style="font-weight: bold; color: ${geo.cor};">Geometria</div>
+                <div style="font-size: 14px;">${geo.texto}</div>
+                <div style="font-size: 13px; color: #bdc3c7;">${errosPitagoras} erro(s)</div>
+            </div>
+            <div style="background: #2f3640; padding: 10px; border-radius: 6px; text-align: center;">
+                <div style="font-size: 28px;">${real.icone}</div>
+                <div style="font-weight: bold; color: ${real.cor};">Cálculos e Raízes</div>
+                <div style="font-size: 14px;">${real.texto}</div>
+                <div style="font-size: 13px; color: #bdc3c7;">${errosReais} erro(s)</div>
+            </div>
+            <div style="background: #2f3640; padding: 10px; border-radius: 6px; text-align: center;">
+                <div style="font-size: 28px;">${loc.icone}</div>
+                <div style="font-weight: bold; color: ${loc.cor};">Localização e Tempo</div>
+                <div style="font-size: 14px;">${loc.texto}</div>
+                <div style="font-size: 13px; color: #bdc3c7;">${errosLocalizacao} erro(s)</div>
+            </div>
+        </div>
+        <div style="background: #2f3640; padding: 10px; border-radius: 6px; margin-top: 8px;">
+            <strong>📌 Recomendação:</strong>
+            <span style="color: #fbc531;">
+                ${totalErros === 0 ? 'Parabéns, engenheiro(a)! Você concluiu a obra sem nenhuma falha. Projeto aprovado com louvor!' :
+                  totalErros <= 10 ? 'Bom trabalho! Alguns ajustes finos vão deixar a obra ainda mais sólida. Reveja os itens com ícone 🚧.' :
+                  'Atenção! Recomendamos uma revisão dos conceitos indicados com 🚧. Use a Revisão Teórica (📘) para reforçar.'}
+            </span>
+        </div>
+    `;
+
+    document.getElementById('texto-laudo').innerHTML = textoLaudo;
+
+    // Adiciona as estatísticas abaixo do laudo (total de erros e dicas)
+    const estatisticas = document.getElementById('laudo-estatisticas');
+    if (estatisticas) {
+        estatisticas.innerHTML = `
+            <span>🔢 Total de erros: <strong>${totalErros}</strong></span> &nbsp;|&nbsp;
+            <span>💡 Dicas utilizadas: <strong>${totalDicas}</strong></span>
+        `;
     }
 }
 
@@ -781,14 +947,30 @@ function gerarEBaixarRelatorio() {
         }
     }
 
-    let conteudo = `======================================================================\n        RELATÓRIO DIAGNÓSTICO COMPLETO - CIDADE PITAGÓRICA\n======================================================================\n\n👤 ALUNO(A): ${nomeDoAluno}\n\n----------------------------------------------------------------------\n📈 RESUMO GERAL DO DESEMPENHO (DASHBOARD)\n----------------------------------------------------------------------\n⏱️  Tempo Total da Sessão: ${formatarSegundos(tempoSessaoSegundos)}\n🎯 Acertos de Primeira (Sem erros): ${totalAcertosPrimeira} passo(s)\n💡 Total de Dicas Solicitadas: ${totalDicas} vez(es)\n   🙋 Pedidas pelo aluno: ${totalDicasManual} vez(es)\n   🤖 Sugeridas pelo sistema (após 3+ erros): ${totalDicasAutomaticas} vez(es)\n⚠️  Ponto Crítico de Aprendizagem: ${passoCriticoStr}\n\n----------------------------------------------------------------------\n🧠 REFLEXÃO METACOGNITIVA (DIÁRIO DE OBRA)\n----------------------------------------------------------------------\n1. Desafio mais complexo e como superou:\nR: ${m1}\n\n2. Eficácia das dicas utilizadas:\nR: ${m2}\n\n3. Aplicação do conhecimento no dia a dia:\nR: ${m3}\n\n----------------------------------------------------------------------\n📊 MAPEAMENTO PEDAGÓGICO DETALHADO E CRONOLOGIA\n----------------------------------------------------------------------\n`;
+    let conteudo = `======================================================================\n        RELATÓRIO DIAGNÓSTICO COMPLETO - CIDADE PITAGÓRICA\n======================================================================\n\n👤 ALUNO(A): ${nomeDoAluno}\n\n----------------------------------------------------------------------\n📈 RESUMO GERAL DO DESEMPENHO (DASHBOARD)\n----------------------------------------------------------------------\n⏱️  Tempo Total da Sessão: ${formatarSegundos(tempoSessaoSegundos)}\n🎯 Acertos de Primeira (Sem erros): ${totalAcertosPrimeira} passo(s)\n💡 Total de Dicas Solicitadas: ${totalDicas} vez(es)\n   🙋 Pedidas pelo aluno: ${totalDicasManual} vez(es)\n   🤖 Sugeridas pelo sistema (após 2+ erros): ${totalDicasAutomaticas} vez(es)\n⚠️  Ponto Crítico de Aprendizagem: ${passoCriticoStr}\n\n----------------------------------------------------------------------\n🧠 REFLEXÃO METACOGNITIVA (DIÁRIO DE OBRA)\n----------------------------------------------------------------------\n1. Desafio mais complexo e como superou:\nR: ${m1}\n\n2. Eficácia das dicas utilizadas:\nR: ${m2}\n\n3. Aplicação do conhecimento no dia a dia:\nR: ${m3}\n\n----------------------------------------------------------------------\n📊 MAPEAMENTO PEDAGÓGICO DETALHADO E CRONOLOGIA\n----------------------------------------------------------------------\n`;
 
+    // AQUI ESTAVA O PROBLEMA: O loop (for) das fases (f) estava faltando!
     for(let f = 1; f <= 15; f++) {
         conteudo += `\n======================================================================\n▶ FASE ${f} - ${bancoDetalhado[f].contexto}\n======================================================================\n`;
-        let maxPassos = Object.keys(bancoDetalhado[f].passos).length;
+        let maxPassos = Object.keys(bancoDetalhado[f].passos).length; // E o maxPassos não estava sendo definido
+
         for(let p = 1; p <= maxPassos; p++) {
             let obj = logDiagnostico[f][p], passoDef = bancoDetalhado[f].passos[p];
-            conteudo += `\n  [ Passo ${p} ] --------------------------------------------\n  🔹 Pergunta: ${passoDef.p}\n  🎯 Esperado: ${passoDef.esp}\n  📚 BNCC: ${passoDef.hab}\n\n  [ DESEMPENHO ]\n  ⏱️ Tempo no passo: ${formatarSegundos(obj.tempoGastoSegundos)}\n  ❌ Quantidade de Erros: ${obj.erros}\n  🖩 Usou Calculadora: ${obj.usouCalculadora ? "Sim" : "Não"}\n`;
+            let regra = regrasDoJogo[f][p];
+            
+            // Verifica se este passo específico tem o botão de calculadora
+            let temCalculadora = false;
+            if (regra && regra.id) {
+                temCalculadora = document.querySelector(`button[onclick*="'${regra.id}'"]`) !== null;
+            }
+
+            conteudo += `\n  [ Passo ${p} ] --------------------------------------------\n  🔹 Pergunta: ${passoDef.p}\n  🎯 Esperado: ${passoDef.esp}\n  📚 BNCC: ${passoDef.hab}\n\n  [ DESEMPENHO ]\n  ⏱️ Tempo no passo: ${formatarSegundos(obj.tempoGastoSegundos)}\n  ❌ Quantidade de Erros: ${obj.erros}\n`;
+            
+            // A linha da calculadora agora SÓ aparece se houver botão de calculadora no HTML para esse input
+            if (temCalculadora) {
+                conteudo += `  🖩 Usou Calculadora: ${obj.usouCalculadora ? "Sim" : "Não"}\n`;
+            }
+
             if (obj.usouDica) conteudo += `  💡 Dica mostrada: "${obj.dicaExata}"\n`;
             conteudo += `\n  [ CRONOLOGIA DE AÇÕES ]\n`;
             if (obj.linhaTempo.length > 0) obj.linhaTempo.forEach(linha => { conteudo += `    > ${linha}\n`; });

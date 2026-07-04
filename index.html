@@ -11,9 +11,11 @@
     <div class="header-rea">
         REA - Recurso Educacional Aberto: Cidade Pitagórica
         <small>Projeto Integrador V | Universidade Virtual do Estado de São Paulo - UNIVESP</small>
-        <button id="btn-mudo" class="btn-mudo" onclick="alternarSom()" aria-pressed="false" title="Ativar ou desativar os efeitos sonoros do jogo">🔊 Som Ligado</button>
-        
-        
+        <div class="header-botoes">
+            <button id="btn-mudo" class="btn-mudo" onclick="alternarSom()" aria-pressed="false" title="Ativar ou desativar os efeitos sonoros do jogo">🔊 Som Ligado</button>
+            <button id="btn-plano" class="btn-plano" onclick="abrirModalProfessor()" aria-haspopup="dialog" title="Abrir o guia do educador (plano de aula)">👨‍🏫 <span class="rotulo-completo">Guia do Educador (Plano de Aula)</span><span class="rotulo-curto">Guia do Educador</span></button>
+            <button id="btn-revisao" class="btn-revisao" onclick="abrirModalRevisao()" aria-haspopup="dialog" title="Abrir a revisão teórica de todo o conteúdo">📘 Revisão Teórica</button>
+        </div>
     </div>
 
     
@@ -65,7 +67,7 @@
             <input type="text" id="nome-aluno" placeholder="Digite seu primeiro nome" aria-label="Digite seu primeiro nome" style="width: 80%; margin-bottom: 20px; text-align: center; font-weight: bold;">
             <div id="feedback-nome-aluno" class="feedback"></div>
             <br>
-            <button onclick="iniciarJogo()">Aceitar e Iniciar Nova Missão</button>
+            <button onclick="iniciarJogo()">Iniciar Nova Missão</button>
 
         
         </div>
@@ -436,8 +438,11 @@
 
             <div class="pergunta-box" id="f10-caixa-1">
                 <p><strong>Passo 1:</strong> Transforme a dízima \(0,666...\) em uma fração simplificada.</p>
-                <input type="number" id="f10-resp-1-num" placeholder="Num" style="width: 80px;"> / 
-                <input type="number" id="f10-resp-1-den" placeholder="Den" style="width: 80px;">
+                <div class="fracao-input">
+                    <input type="number" id="f10-resp-1-num" class="fracao-campo" placeholder="Num" aria-label="Numerador da fração simplificada">
+                    <div class="fracao-barra"></div>
+                    <input type="number" id="f10-resp-1-den" class="fracao-campo" placeholder="Den" aria-label="Denominador da fração simplificada">
+                </div>
                 <button class="btn-dica" onclick="mostrarDica(10, 1)">💡 Dica</button>
                 <button id="f10-btn-1">Validar Resposta</button>
                 <div id="f10-feed-1" class="feedback"></div>
@@ -461,7 +466,11 @@
 
             <div class="pergunta-box" id="f11-caixa-1">
                 <p><strong>Passo 1:</strong> O valor de \(p\) é \(0,666...\) Qual é a sua fração geratriz?</p>
-                <input type="text" id="f11-resp-1" placeholder="x/y">
+                <div class="fracao-input">
+                    <input type="number" id="f11-resp-1-num" class="fracao-campo" placeholder="Num" aria-label="Numerador de p">
+                    <div class="fracao-barra"></div>
+                    <input type="number" id="f11-resp-1-den" class="fracao-campo" placeholder="Den" aria-label="Denominador de p">
+                </div>
                 <button class="btn-dica" onclick="mostrarDica(11, 1)">💡 Dica</button>
                 <button id="f11-btn-1">Validar p</button>
                 <div id="f11-feed-1" class="feedback"></div>
@@ -469,7 +478,11 @@
 
             <div class="pergunta-box" id="f11-caixa-2" style="display: none; border-color: #00a8ff;">
                 <p><strong>Passo 2:</strong> O valor de \(q\) é \(3^{-1}\). O expoente negativo inverte a base. Qual é a fração?</p>
-                <input type="text" id="f11-resp-2" placeholder="x/y">
+                <div class="fracao-input">
+                    <input type="number" id="f11-resp-2-num" class="fracao-campo" placeholder="Num" aria-label="Numerador de q">
+                    <div class="fracao-barra"></div>
+                    <input type="number" id="f11-resp-2-den" class="fracao-campo" placeholder="Den" aria-label="Denominador de q">
+                </div>
                 <button class="btn-dica" onclick="mostrarDica(11, 2)">💡 Dica</button>
                 <button id="f11-btn-2">Validar q</button>
                 <div id="f11-feed-2" class="feedback"></div>
@@ -492,7 +505,11 @@
 
             <div class="pergunta-box" id="f12-caixa-1">
                 <p><strong>Passo 1:</strong> \(m = (1,777...)^{0,5}\). A fração é 16/9 e 0,5 é a raiz quadrada. Qual a raiz de 16/9?</p>
-                <input type="text" id="f12-resp-1" placeholder="x/y" aria-label="Digite o valor de m na forma de fração">
+                <div class="fracao-input">
+                    <input type="number" id="f12-resp-1-num" class="fracao-campo" placeholder="Num" aria-label="Numerador de m">
+                    <div class="fracao-barra"></div>
+                    <input type="number" id="f12-resp-1-den" class="fracao-campo" placeholder="Den" aria-label="Denominador de m">
+                </div>
                 <button class="btn-dica" onclick="mostrarDica(12, 1)">💡 Dica</button>
                 <button id="f12-btn-1">Decifrar m</button>
                 <div id="f12-feed-1" class="feedback"></div>
@@ -500,7 +517,11 @@
 
             <div class="pergunta-box" id="f12-caixa-2" style="display: none; border-color: #00a8ff;">
                 <p><strong>Passo 2:</strong> \(n = (2/3)^{-2}\). Inverta a base e eleve ao quadrado.</p>
-                <input type="text" id="f12-resp-2" placeholder="x/y" aria-label="Digite o valor de n na forma de fração">
+                <div class="fracao-input">
+                    <input type="number" id="f12-resp-2-num" class="fracao-campo" placeholder="Num" aria-label="Numerador de n">
+                    <div class="fracao-barra"></div>
+                    <input type="number" id="f12-resp-2-den" class="fracao-campo" placeholder="Den" aria-label="Denominador de n">
+                </div>
                 <button class="btn-dica" onclick="mostrarDica(12, 2)">💡 Dica</button>
                 <button id="f12-btn-2">Decifrar n</button>
                 <div id="f12-feed-2" class="feedback"></div>
@@ -645,6 +666,12 @@
             <h1 style="text-align: center; color: #fbc531;">📊 Diário de Obra (Relatório Final)</h1>
             <p style="text-align: center;">Parabéns! A Cidade Pitagórica está pronta. Como engenheiro(a) chefe, faça seu relato final:</p>
             
+            <div id="laudo-formativo" style="background-color: #353b48; padding: 15px; border-radius: 8px; margin-bottom: 20px; border-left: 5px solid #00a8ff; text-align: left;">
+                <h3 style="color: #00a8ff; margin-top: 0; font-size: 18px;">📋 Laudo de Inspeção da Obra (Feedback)</h3>
+                <div id="texto-laudo" style="font-size: 15px; line-height: 1.5; color: #ecf0f1; margin: 0;"></div>
+                <div id="laudo-estatisticas" style="margin-top: 12px; font-size: 14px; color: #bdc3c7; border-top: 1px solid #4a5568; padding-top: 10px;"></div>
+            </div>
+            
             <div style="text-align: left; margin-bottom: 15px;">
                 <label style="font-weight: bold; color: #00a8ff;">1. Qual desafio matemático mais "deu um nó" na sua cabeça e como você superou?</label><br>
                 <textarea id="meta-1" rows="3"  style="width: 100%; border-radius: 6px; padding: 10px; margin-top: 5px; font-family: inherit; resize: vertical;" aria-label="Descreva o desafio matemático e como você superou"></textarea>
@@ -670,10 +697,91 @@
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
     <div class="footer-info">
-        <span class="titulo-footer">Educação Baseada em Evidências - Intervenção Pedagógica a partir dos Dados da Prova Paulista do 1º Bimestre de 2026</span>
+        <span class="titulo-footer">Educação Matemática Baseada em Evidências - Intervenção Pedagógica a partir dos Dados da Prova Paulista de Matemática do 1º Bimestre de 2026</span>
         <strong>Projeto Integrador V</strong> | Universidade Virtual do Estado de São Paulo - UNIVESP<br>
         Desenvolvido por: Antonio Antunes Junior, Giovani Machado de Lima, Lilian Maria de Souza Lino, Priscilla Santiago Zamorra, Renata Helena Arantes e Oliveira, Rodrigo Aires de Medeiros Correa, Sergio Eric Reis de Oliveira, Vitor Correa Uberti.
         <div class="licenca">Versão 1.0 | Licença MIT © 2026</div>
+    
+        
+    </div>
+
+
+    <div id="modal-professor" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="titulo-modal-professor" aria-hidden="true">
+        <div class="modal-conteudo">
+            <span id="fechar-modal-professor" class="modal-fechar" onclick="fecharModalProfessor()" tabindex="0" role="button" aria-label="Fechar guia do educador">✖</span>
+            <h2 id="titulo-modal-professor" class="modal-titulo">📚 Espaço do Professor - Plano de Aula Inovador</h2>
+            
+            <h3 class="modal-subtitulo">1. Diagnóstico e Justificativa (Avaliação em Larga Escala)</h3>
+            <p class="modal-paragrafo">Este Recurso Educacional Aberto (REA) foi criado como <strong>Intervenção Pedagógica</strong> baseada nos resultados da Prova Paulista (1º Bimestre/2026) da 1ª Série do Ensino Médio. Os dados da plataforma <em>Escola Total</em> revelaram taxas críticas de acertos nas habilidades envolvendo o Teorema de Pitágoras (variando de 4% a 28%) e operações com números reais. O jogo atua no diagnóstico contínuo e na consolidação imediata dessas lacunas de forma gamificada.</p>
+            
+            <h3 class="modal-subtitulo">2. Objetivos e Habilidades (Currículo Paulista)</h3>
+            <ul class="modal-paragrafo">
+                <li><strong>EF09MA13 / EF09MA14:</strong> Relações métricas e Teorema de Pitágoras (Fases 1 a 6).</li>
+                <li><strong>EF08MA02 / EF09MA02 / EF09MA03:</strong> Radiciação, dízimas, simplificação de radicais e números irracionais (Fases 6 a 13).</li>
+                <li><strong>EF09MA01:</strong> Localização de números na reta numérica (Fase 14).</li>
+            </ul>
+            
+            <h3 class="modal-subtitulo">3. Metodologia de Aplicação</h3>
+            <p class="modal-paragrafo"><strong>Tempo estimado:</strong> 2 aulas (90 minutos).<br><strong>Formato:</strong> Laboratório de Informática (Individual ou Duplas).<br><strong>Papel do Docente:</strong> O professor atuará como "Mestre de Obras", não entregando respostas prontas, mas incentivando os alunos a utilizarem a Calculadora Científica do sistema e a lerem os Feedbacks das dicas.</p>
+            
+            <h3 class="modal-subtitulo">4. Avaliação Formativa</h3>
+            <p class="modal-paragrafo">O sistema rompe com a avaliação punitiva (0 a 10). O erro faz parte da mecânica (após 2 erros, o sistema fornece <em>scaffolding</em> automático com dicas). Ao final, um <strong>Laudo de Inspeção Formativo</strong> é gerado, e o aluno produz um relatório metacognitivo (TXT) documentando sua cronologia de aprendizagem para acompanhamento do professor.</p>
+        </div>
+    </div>
+
+    <div id="modal-revisao" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="titulo-modal-revisao" aria-hidden="true">
+        <div class="modal-conteudo">
+            <span id="fechar-modal-revisao" class="modal-fechar" onclick="fecharModalRevisao()" tabindex="0" role="button" aria-label="Fechar revisão teórica">✖</span>
+            <h2 id="titulo-modal-revisao" class="modal-titulo">📘 Revisão Teórica - Toda a Teoria da Cidade Pitagórica</h2>
+
+            <h3 class="modal-subtitulo">1. Teorema de Pitágoras (Fases 1 a 7)</h3>
+            <p class="modal-paragrafo">Em todo triângulo retângulo (que tem um ângulo de 90°), o quadrado da medida da <strong>hipotenusa</strong> (o lado maior, oposto ao ângulo reto) é igual à soma dos quadrados das medidas dos <strong>catetos</strong> (os dois lados menores, que formam o ângulo reto):</p>
+            <p class="modal-formula">\( h^2 = c_1^2 + c_2^2 \)</p>
+            <p class="modal-paragrafo">Uma forma visual de entender por que isso é verdade: se você desenhar um quadrado sobre cada lado do triângulo, a <strong>área do quadrado maior</strong> (sobre a hipotenusa) é exatamente igual à <strong>soma das áreas dos dois quadrados menores</strong> (sobre os catetos). É essa relação de áreas que a figura abaixo mostra:</p>
+
+            <figure class="modal-figura">
+                <svg width="100%" style="max-width: 500px;" viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ilustração do Teorema de Pitágoras: um triângulo retângulo com um quadrado colorido construído sobre cada um dos seus três lados, mostrando que a área do quadrado da hipotenusa equivale à soma das áreas dos quadrados dos dois catetos.">
+                    <g id="sq-cat1" class="square" fill="#FF6B6B">
+                        <rect x="60" y="260" width="240" height="240" />
+                        <text x="180" y="386" fill="white" font-size="20" text-anchor="middle" font-weight="bold">Ac₂ = c₂² = c₂ . c₂</text>
+                    </g>
+                    <g id="sq-cat2" class="square" fill="#4CAF50">
+                        <rect x="300" y="500" width="180" height="180" />
+                        <text x="390" y="596" fill="white" font-size="18" text-anchor="middle" font-weight="bold">Ac₁ = c₁² = c₁ . c₁</text>
+                    </g>
+                    <g id="sq-hip" class="square" fill="#6C63FF">
+                        <g transform="translate(300, 260) rotate(53.13) translate(0, -300)">
+                            <rect x="0" y="0" width="300" height="300" />
+                            <text x="150" y="157" fill="white" font-size="22" text-anchor="middle" font-weight="bold">Ah = h² = h . h</text>
+                        </g>
+                    </g>
+                    <path id="main-triangle" class="triangle-path" d="M300,500 L300,260 L480,500 Z" fill="none" stroke="#333" stroke-width="3" stroke-linejoin="round" />
+                    <polyline id="right-angle" class="right-angle" points="300,460 340,460 340,500" fill="transparent" stroke="#333" stroke-width="2" />
+                    <text id="label-cat1" class="side-label" x="320" y="386" fill="#333" font-size="18" font-weight="bold" text-anchor="start">c₂</text>
+                    <text id="label-cat2" class="side-label" x="390" y="485" fill="#333" font-size="18" font-weight="bold" text-anchor="middle">c₁</text>
+                    <g id="label-hip" class="side-label" transform="translate(410, 370) rotate(53.13)">
+                        <text x="0" y="0" fill="#333" font-size="18" font-weight="bold" text-anchor="middle">h</text>
+                    </g>
+                </svg>
+                <figcaption class="modal-legenda">Área roxa (hipotenusa) = Área vermelha (cateto c₂) + Área verde (cateto c₁)</figcaption>
+            </figure>
+
+            <h3 class="modal-subtitulo">2. Relações Métricas, Perímetro e Área (Fases 3, 4, 5, 8)</h3>
+            <p class="modal-paragrafo">O Teorema de Pitágoras aparece escondido em várias situações práticas: achar a diagonal de um retângulo ou de uma piscina, calcular a altura de uma rampa, ou fechar um "esquadro" (ângulo reto) usando só uma trena. <strong>Perímetro</strong> é a soma de todos os lados de uma figura (usado para cercar um terreno, por exemplo). <strong>Área</strong> é o espaço ocupado dentro da figura — em um trapézio, soma-se as duas bases, divide-se por 2, e multiplica-se pela altura.</p>
+
+            <h3 class="modal-subtitulo">3. Potenciação, Radiciação e Números Irracionais (Fases 7, 9, 13)</h3>
+            <p class="modal-paragrafo"><strong>Raiz quadrada</strong> (√) é a operação inversa de elevar ao quadrado: perguntar "qual número multiplicado por ele mesmo dá esse resultado?". Quando essa raiz não dá um número exato (como \(\sqrt{200}\)), o resultado é um <strong>número irracional</strong> — uma dízima infinita e sem repetição, que não pode ser escrita como fração. Já a <strong>raiz cúbica</strong> (∛) faz a pergunta com três fatores iguais, útil para achar o lado de um cubo a partir do seu volume.</p>
+
+            <h3 class="modal-subtitulo">4. Dízimas Periódicas e Frações Geratrizes (Fases 10, 11, 12)</h3>
+            <p class="modal-paragrafo">Uma <strong>dízima periódica</strong> (como 0,666...) é um número decimal com uma sequência que se repete infinitamente. Toda dízima periódica pode ser escrita como uma fração — chamada de <strong>fração geratriz</strong>. Regra prática para o caso mais simples: o número que se repete vai no numerador, e coloca-se um "9" no denominador para cada dígito que se repete (0,666... → 6/9, que simplifica para 2/3).</p>
+            <p class="modal-paragrafo">Para <strong>multiplicar ou dividir frações</strong>: multiplicar é "de cima com de cima, de baixo com de baixo"; dividir é multiplicar pela fração invertida. Um <strong>expoente negativo</strong> (como 3⁻¹) também inverte a fração: eleva-se o inverso ao expoente positivo correspondente.</p>
+
+            <h3 class="modal-subtitulo">5. Reta Numérica e Comparação de Números Reais (Fase 14)</h3>
+            <p class="modal-paragrafo">Todo número real (inteiro, fracionário ou irracional) tem um lugar exato na reta numérica. Para posicionar uma fração, compare o numerador com o denominador: se o numerador é <em>menor</em> que o denominador, a fração fica entre 0 e 1; se é <em>maior</em>, fica acima de 1. Comparar duas frações é como comparar suas posições nessa reta.</p>
+
+            <h3 class="modal-subtitulo">6. Aplicação Prática: Unidades de Tempo (Fase 15)</h3>
+            <p class="modal-paragrafo">Somar minutos e converter o resultado em horas e minutos (por exemplo, para saber a que horas termina um filme) segue a mesma lógica de "trocar de base": a cada 60 minutos completos, soma-se 1 hora, e o restante continua como minutos.</p>
+        </div>
     </div>
 
     <script src="js/script.js"></script>

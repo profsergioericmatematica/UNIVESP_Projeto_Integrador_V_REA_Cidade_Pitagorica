@@ -29,6 +29,7 @@ body {
     color: #fbc531;
     letter-spacing: 1px;
     box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    box-sizing: border-box;
 }
 .header-rea small {
     font-weight: normal;
@@ -38,9 +39,52 @@ body {
     margin-top: 4px;
 }
 
-.btn-mudo {
+/* Container dos botões: quebra linha de forma organizada em telas
+   estreitas, em vez de deixar cada botão flutuar separado. */
+.header-botoes {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
     margin-top: 10px;
-    background-color: #718093;
+}
+
+.btn-mudo {
+    margin: 0;
+    background-color: #27eb16;
+    color: rgb(0, 0, 0);
+    border: none;
+    padding: 6px 14px;
+    font-size: 13px;
+    font-weight: bold;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.2s;
+}
+.btn-mudo:hover { background-color: #0c930c; transform: scale(1.05); }
+.btn-mudo.mudo-ativo { background-color: #e84118; }
+.btn-mudo.mudo-ativo:hover { background-color: #c23616; }
+
+.btn-plano {
+    margin: 0;
+    background-color: #1c6cdb;
+    color: rgb(256, 256, 256);
+    border: none;
+    padding: 6px 14px;
+    font-size: 13px;
+    font-weight: bold;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+.btn-plano:hover { background-color: #114793; transform: scale(1.05); }
+.btn-plano.plano-ativo { background-color: #3537ac; }
+.btn-plano.plano-ativo:hover { background-color: #170ad1; }
+
+.btn-revisao {
+    margin: 0;
+    background-color: #5A50E8;
     color: white;
     border: none;
     padding: 6px 14px;
@@ -50,9 +94,15 @@ body {
     cursor: pointer;
     transition: background-color 0.2s, transform 0.2s;
 }
-.btn-mudo:hover { background-color: #95a5a6; transform: scale(1.05); }
-.btn-mudo.mudo-ativo { background-color: #e84118; }
-.btn-mudo.mudo-ativo:hover { background-color: #c23616; }
+.btn-revisao:hover { background-color: #4840c7; transform: scale(1.05); }
+
+/* Em telas de celular estreitas, troca o rótulo longo por uma versão curta,
+   evitando que o botão fique espremido ou desproporcional ao lado dos outros. */
+.rotulo-curto { display: none; }
+@media (max-width: 480px) {
+    .rotulo-completo { display: none; }
+    .rotulo-curto { display: inline; }
+}
 
 .footer-info {
     width: 100%;
@@ -309,4 +359,179 @@ button:hover { background-color: #fbc531; transform: scale(1.05); }
     padding: 8px 12px;
     border-radius: 4px;
     font-weight: bold;
+}
+
+/* ---------------- MODAL DO PROFESSOR (GUIA DO EDUCADOR) ---------------- */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.85);
+    z-index: 2000;
+    overflow-y: auto;
+    padding: 20px;
+    box-sizing: border-box;
+}
+.modal-overlay.aberto { display: block; }
+
+.modal-conteudo {
+    background: #2f3640;
+    max-width: 700px;
+    margin: 20px auto;
+    padding: 30px;
+    border-radius: 10px;
+    border-top: 5px solid #00a8ff;
+    text-align: left;
+    color: #ecf0f1;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+    position: relative;
+}
+
+.modal-fechar {
+    float: right;
+    font-size: 24px;
+    cursor: pointer;
+    color: #e84118;
+    font-weight: bold;
+}
+.modal-fechar:focus {
+    outline: 3px solid #fbc531;
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+.modal-titulo {
+    color: #00a8ff;
+    margin-top: 0;
+}
+
+.modal-subtitulo {
+    color: #fbc531;
+}
+
+.modal-paragrafo {
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+.modal-formula {
+    font-size: 26px;
+    font-weight: bold;
+    text-align: center;
+    color: #fbc531;
+    background-color: #1e272e;
+    padding: 12px;
+    border-radius: 8px;
+    margin: 10px 0 20px;
+    letter-spacing: 1px;
+}
+
+.modal-figura {
+    text-align: center;
+    margin: 20px 0;
+    padding: 15px;
+    background-color: #ffffff;
+    border-radius: 8px;
+}
+
+.modal-legenda {
+    font-size: 13px;
+    color: #7f8fa6;
+    margin-top: 10px;
+    font-style: italic;
+}
+
+/* ---------------- ANIMAÇÃO DE ENTRADA DO SVG DO TEOREMA DE PITÁGORAS ---------------- */
+/* A ordem conta a "história" da prova: primeiro o triângulo se desenha,
+   depois cada quadrado aparece sobre o lado correspondente, e por último
+   os rótulos e a legenda. Toca de novo toda vez que o modal é aberto,
+   porque a animação só roda enquanto o elemento está visível na tela. */
+
+.modal-figura {
+    /* Multiplicador de velocidade: 1 = tempos originais, 2 = o dobro (mais
+       lento), 0.5 = metade (mais rápido). Muda só esse número aqui. */
+    --pitagoras-velocidade: 2.5;
+}
+
+.modal-figura #main-triangle {
+    stroke-dasharray: 720;
+    stroke-dashoffset: 720;
+    animation: pitagoras-desenhar calc(0.9s * var(--pitagoras-velocidade)) ease-out forwards;
+}
+.modal-figura #right-angle {
+    opacity: 0;
+    animation: pitagoras-aparecer calc(0.3s * var(--pitagoras-velocidade)) ease-out calc(0.9s * var(--pitagoras-velocidade)) forwards;
+}
+.modal-figura #sq-cat2 {
+    opacity: 0;
+    animation: pitagoras-aparecer calc(0.5s * var(--pitagoras-velocidade)) ease-out calc(1.1s * var(--pitagoras-velocidade)) forwards;
+}
+.modal-figura #sq-cat1 {
+    opacity: 0;
+    animation: pitagoras-aparecer calc(0.5s * var(--pitagoras-velocidade)) ease-out calc(1.5s * var(--pitagoras-velocidade)) forwards;
+}
+.modal-figura #sq-hip {
+    opacity: 0;
+    animation: pitagoras-aparecer calc(0.5s * var(--pitagoras-velocidade)) ease-out calc(1.9s * var(--pitagoras-velocidade)) forwards;
+}
+.modal-figura .side-label {
+    opacity: 0;
+    animation: pitagoras-aparecer calc(0.4s * var(--pitagoras-velocidade)) ease-out calc(2.4s * var(--pitagoras-velocidade)) forwards;
+}
+.modal-figura .modal-legenda {
+    opacity: 0;
+    animation: pitagoras-aparecer calc(0.6s * var(--pitagoras-velocidade)) ease-out calc(2.8s * var(--pitagoras-velocidade)) forwards;
+}
+
+@keyframes pitagoras-desenhar {
+    to { stroke-dashoffset: 0; }
+}
+@keyframes pitagoras-aparecer {
+    to { opacity: 1; }
+}
+
+/* Respeita quem prefere menos movimento na tela: mostra tudo pronto, sem animar */
+@media (prefers-reduced-motion: reduce) {
+    .modal-figura #main-triangle,
+    .modal-figura #right-angle,
+    .modal-figura #sq-cat1,
+    .modal-figura #sq-cat2,
+    .modal-figura #sq-hip,
+    .modal-figura .side-label,
+    .modal-figura .modal-legenda {
+        animation: none !important;
+        opacity: 1 !important;
+        stroke-dashoffset: 0 !important;
+    }
+}
+
+/* ---------------- FRAÇÃO VISUAL (numerador em cima, denominador embaixo) ---------------- */
+.fracao-input {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    vertical-align: middle;
+    margin: 0 8px 10px 0;
+}
+.fracao-campo {
+    width: 70px !important;
+    max-width: 70px !important;
+    text-align: center;
+    padding: 6px !important;
+    margin: 0 !important;
+}
+.fracao-barra {
+    width: 70px;
+    height: 3px;
+    background-color: #ecf0f1;
+    margin: 4px 0;
+    border-radius: 2px;
+}
+
+@media (max-width: 768px) {
+    .fracao-campo { width: 60px !important; max-width: 60px !important; }
+    .fracao-barra { width: 60px; }
 }
