@@ -76,6 +76,8 @@ O REA foi desenvolvido como intervenção pedagógica a partir dos dados da **Pr
 ```text
 /
 ├── index.html                                                              # Estrutura principal, templates das fases e UI
+├── README.md 
+├── Lucense
 ├── style/
 │   └── style.css                              # Estilos globais, temas escuros e responsividade
 ├── js/
