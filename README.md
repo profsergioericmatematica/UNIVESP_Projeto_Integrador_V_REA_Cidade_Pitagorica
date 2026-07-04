@@ -88,7 +88,6 @@ O REA foi desenvolvido como intervenção pedagógica a partir dos dados da **Pr
 
 ## 📂 Estrutura de Arquivos
 
-
 ```text
 /
 ├── index.html                                                              # Estrutura principal, templates das fases e UI
