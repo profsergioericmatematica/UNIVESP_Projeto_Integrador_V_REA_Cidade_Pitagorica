@@ -12,7 +12,7 @@
 
 ---
  
-📖 ## Índice
+## Índice
 
 - [Sobre o Projeto](#-sobre-o-projeto)
 - [Objetivo Pedagógico](#-objetivo-pedagógico)
@@ -28,7 +28,7 @@
 
 ---
 
-🧩 ## Sobre o Projeto
+## Sobre o Projeto
 
 A **Cidade Pitagórica** é um Recurso Educacional Aberto (REA) que combina **gamificação**, **diagnóstico formativo** e **acessibilidade**. O aluno assume o papel de um(a) engenheiro(a) responsável por concluir as obras de uma cidade, resolvendo 15 fases de problemas matemáticos contextualizados. Cada fase é composta por passos que exigem a aplicação do Teorema de Pitágoras, operações com números reais, radiciação, frações, geometria plana e conversão de unidades.
 
@@ -36,7 +36,7 @@ O sistema é **auto-suficiente** e **offline**, rodando inteiramente no navegado
 
 ---
 
-🎯 ## Objetivo Pedagógico
+## Objetivo Pedagógico
 
 - **Diagnosticar** lacunas de aprendizagem em habilidades matemáticas essenciais.
 - **Consolidar** conhecimentos por meio de problemas práticos e feedback imediato.
@@ -45,7 +45,7 @@ O sistema é **auto-suficiente** e **offline**, rodando inteiramente no navegado
 
 ---
 
-📚 ## Mapeamento com a Prova Paulista e Habilidades da BNCC
+## Mapeamento com a Prova Paulista e Habilidades da BNCC
 
 O REA foi desenvolvido como intervenção pedagógica a partir dos dados da **Prova Paulista do 1º Bimestre de 2026** (1ª Série do Ensino Médio). Cada fase do jogo foi pensada para trabalhar as habilidades específicas avaliadas nas questões da prova oficial.
 
@@ -57,7 +57,7 @@ O REA foi desenvolvido como intervenção pedagógica a partir dos dados da **Pr
 
 ---
 
-🚀 ## Funcionalidades
+## Funcionalidades
 
 | Funcionalidade | Descrição |
 | :--- | :--- |
@@ -77,7 +77,7 @@ O REA foi desenvolvido como intervenção pedagógica a partir dos dados da **Pr
 
 ---
 
-🛠️ ## Tecnologias usadas
+## Tecnologias usadas
 
 - **HTML5** – Estrutura semântica e acessível.
 - **CSS3** – Flexbox, Grid, animações keyframes, media queries.
@@ -86,7 +86,7 @@ O REA foi desenvolvido como intervenção pedagógica a partir dos dados da **Pr
 
 ---
 
-📂 ## Estrutura de Arquivos
+## Estrutura de Arquivos
 
 ```text
 /
@@ -112,19 +112,11 @@ O REA foi desenvolvido como intervenção pedagógica a partir dos dados da **Pr
 │   └── 1-serie-dia-2-prova-roxa-1-16.pdf
 │   └── Prova_e_Folha_de_Respostas_Seduc_1_srie_DIA_2__Prova_Roxa-2-5.pdf
 └── Testes de Bancada/
-    └── Relatorio_Pitagorica_Teste_Caótico_Completo.txt
-    └── Relatorio_Pitagorica_Teste_das_Respostas_Sujas.txt
-    └── Relatorio_Pitagorica_Teste_de_Bancada_acertando_tudo_pedindo_todas_as_dicas_e_usando_calculadora.txt
-    └── Relatorio_Pitagorica_Teste_de_Bancada_acertando_tudo_sem_pedir_dicas_e_sem_usar_calculadora.txt
-    └── Relatorio_Pitagorica_Teste_de_Bancada_acertando_tudo_sem_pedir_dicas_e_usando_calculadora.txt
-    └── Relatorio_Pitagorica_Teste_de_Bancada_errando_tudo_uma_vez.txt
-    └── Relatorio_Pitagorica_Teste_do_Spammer_Cliques_no_Vazio.txt
-    └── Análise dos testes de bancada.odt
 
 ```
 ---
 
-⚙️ ## Como executar o projeto
+## Como executar o projeto
 
 Como o projeto é feito puramente em tecnologias web client-side (sem back-end ou necessidade de banco de dados), a execução é imediata:
 
@@ -142,7 +134,7 @@ git clone [https://github.com/profsergioericmatematica/UNIVESP_Projeto_Integrado
 
 ---
 
-👨‍🏫 ## Como utilizar
+## Como utilizar
 
 **Para o Aluno**
 
@@ -166,7 +158,7 @@ git clone [https://github.com/profsergioericmatematica/UNIVESP_Projeto_Integrado
 
 ---
 
-🧪 ## Testes de Bancada
+## Testes de Bancada
 
 O sistema foi validado por meio de **9 testes de bancada** que simularam diferentes perfis de uso. Os testes abrangeram:
 
@@ -184,7 +176,7 @@ Os relatórios completos estão disponíveis na pasta Testes de Bancada/.
 
 ---
 
-👨 ## Equipe de Desenvolvimento
+## Equipe de Desenvolvimento
 
 **Projeto desenvolvido em colaboração pelos discentes da UNIVESP:**
 
