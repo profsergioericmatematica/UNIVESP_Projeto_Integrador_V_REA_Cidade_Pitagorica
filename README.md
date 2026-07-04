@@ -11,7 +11,7 @@
 **Cidade Pitagórica** é um jogo digital interativo desenvolvido como parte do **Projeto Integrador V** da **Universidade Virtual do Estado de São Paulo (UNIVESP)**. O projeto utiliza uma abordagem de **Educação Baseada em Evidências**, transformando dados da Prova Paulista (1º Bimestre/2026) em desafios pedagógicos significativos.
 
 ---
-
+ 
 ## 📖 Índice
 
 - [Sobre o Projeto](#-sobre-o-projeto)
