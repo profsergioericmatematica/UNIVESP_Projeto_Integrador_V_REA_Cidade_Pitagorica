@@ -16,14 +16,14 @@
 
 - [Sobre o Projeto](#-sobre-o-projeto)
 - [Objetivo Pedagógico](#-objetivo-pedagógico)
-- [Mapeamento com a Prova Paulista e Habilidades da BNCC](#-mapeamento_com_a_Prova_Paulista_e_Habilidades_da_BNCC)
+- [Mapeamento com a Prova Paulista e Habilidades da BNCC](#-mapeamento-com-a-Prova-Paulista-e-Habilidades-da-BNCC)
 - [Funcionalidades](#-funcionalidades)
 - [Tecnologias](#-tecnologias)
 - [Estrutura de Arquivos](#-estrutura-de-arquivos)
 - [Como Executar](#-como-executar)
 - [Como Utilizar](#-como-utilizar)
 - [Testes de Bancada](#-testes-de-bancada)
-- [Equipe de Desenvolvimento](#-equipe_de_desenvolvimento)
+- [Equipe de Desenvolvimento](#-equipe-de-desenvolvimento)
 - [Licença](#-licença)
 
 ---
@@ -74,6 +74,7 @@ O REA foi desenvolvido como intervenção pedagógica a partir dos dados da **Pr
 
 
 **Nota:** A Fase 6 (Iluminação da Piscina) aborda ambas as habilidades, pois envolve o cálculo da diagonal pelo Teorema de Pitágoras (EM13MAT308) e a classificação do número resultante como irracional (EM13MAT103).
+
 ---
 
 ## 🛠️ Tecnologias
@@ -139,6 +140,8 @@ git clone [https://github.com/profsergioericmatematica/UNIVESP_Projeto_Integrado
 
 * **Nota:** Para gerar e baixar o relatório diagnóstico final .txt, garanta que o navegador tenha permissão para baixar arquivos.
 
+---
+
 ## 👨‍🏫 Como Utilizar
 
 **Para o Aluno**
@@ -200,6 +203,8 @@ Rodrigo Aires de Medeiros Correa
 Sergio Eric Reis de Oliveira
 
 Vitor Correa Uberti
+
+---
 
 ## 📄 Licença
 
