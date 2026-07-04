@@ -16,6 +16,7 @@
 
 - [Sobre o Projeto](#-sobre-o-projeto)
 - [Objetivo Pedagógico](#-objetivo-pedagógico)
+- [Mapeamento com a Prova Paulista e Habilidades da BNCC](#-mapeamento_com_a_Prova_Paulista_e_Habilidades_da_BNCC)
 - [Funcionalidades](#-funcionalidades)
 - [Tecnologias](#-tecnologias)
 - [Estrutura de Arquivos](#-estrutura-de-arquivos)
@@ -41,8 +42,6 @@ O sistema é **auto-suficiente** e **offline**, rodando inteiramente no navegado
 - **Consolidar** conhecimentos por meio de problemas práticos e feedback imediato.
 - **Promover** a autonomia do estudante com ferramentas de apoio (calculadora, dicas contextuais).
 - **Gerar** relatórios detalhados para subsidiar o planejamento de intervenções pedagógicas.
-
-### Habilidades da BNCC abordadas
 
 ## 📚 Mapeamento com a Prova Paulista e Habilidades da BNCC
 
